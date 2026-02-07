@@ -5,17 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Anshuman Khare | Portfolio</title>
 
-  <!-- Tailwind -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- React -->
   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-
-  <!-- Babel -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-
-  <!-- Lucide -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
@@ -28,41 +21,67 @@
 <body class="bg-slate-50 text-slate-900">
   <div id="root"></div>
 
-  <!-- ✅ LOAD COMPONENTS FIRST -->
-  <script type="text/babel" src="/src/components/Hero.jsx"></script>
-
-  <!-- ✅ MAIN APP -->
   <script type="text/babel">
     const { useState, useEffect } = React;
 
-    // Pull component from window
-    const Hero = window.Hero;
-
-    // Icon helper
+    /* =======================
+       ICON COMPONENT
+    ======================= */
     const Icon = ({ name, size = 18, className = "" }) => {
       useEffect(() => {
         if (window.lucide) window.lucide.createIcons();
       }, [name]);
 
-      return (
-        <i
-          data-lucide={name}
-          className={className}
-          style={{ width: size, height: size }}
-        ></i>
-      );
+      return <i data-lucide={name} className={className} style={{ width: size, height: size }}></i>;
     };
 
+    /* =======================
+       HERO COMPONENT
+    ======================= */
+    const Hero = ({ stats }) => (
+      <section id="about" className="pt-32 pb-20 px-6 bg-white">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+          <div className="space-y-8">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border text-indigo-600 text-xs font-bold uppercase">
+              <Icon name="trending-up" size={14} /> Growth & Performance Marketing
+            </div>
+
+            <h1 className="text-5xl md:text-7xl font-extrabold">
+              Scaling Growth With <span className="text-indigo-600 italic">Precision.</span>
+            </h1>
+
+            <p className="text-lg text-slate-600 max-w-xl">
+              Performance marketer owning acquisition and P&L outcomes.
+            </p>
+
+            <div className="flex gap-4">
+              <a href="mailto:khare.anshuman47@gmail.com" className="px-8 py-4 bg-indigo-600 text-white rounded-xl font-bold">
+                Get in Touch
+              </a>
+              <a href="https://www.linkedin.com/in/anshumankhare/" target="_blank"
+                 className="px-8 py-4 border rounded-xl font-bold">
+                LinkedIn
+              </a>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            {stats.map((s, i) => (
+              <div key={i} className="metric-card p-6 bg-slate-50 rounded-2xl border">
+                <p className="text-indigo-600 text-sm font-semibold">{s.label}</p>
+                <h3 className="text-3xl font-bold">{s.value}</h3>
+                <p className="text-slate-500 text-xs uppercase">{s.sub}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+
+    /* =======================
+       APP
+    ======================= */
     const App = () => {
-      const [activeTab, setActiveTab] = useState("experience");
-      const [scrolled, setScrolled] = useState(false);
-
-      useEffect(() => {
-        const handleScroll = () => setScrolled(window.scrollY > 50);
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-      }, []);
-
       const stats = [
         { label: "Revenue Growth", value: "₹2.5Cr+", sub: "Monthly Baseline" },
         { label: "Peak Revenue", value: "₹5Cr", sub: "During Cycles" },
@@ -71,35 +90,16 @@
       ];
 
       return (
-        <div className="min-h-screen">
-          {/* NAV */}
-          <nav
-            className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-              scrolled
-                ? "bg-white/80 backdrop-blur-md border-b border-slate-200 py-4 shadow-sm"
-                : "bg-transparent py-6"
-            }`}
-          >
-            <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
-              <span className="text-xl font-extrabold">
-                ANSHUMAN<span className="text-indigo-600">KHARE</span>
-              </span>
-            </div>
-          </nav>
-
-          {/* HERO */}
-          <Hero stats={stats} Icon={Icon} />
-
-          {/* FOOTER */}
-          <footer className="py-12 text-center text-slate-400 text-xs font-bold uppercase tracking-[0.2em] border-t border-slate-100">
-            © 2026 Anshuman Khare • Built for Growth
+        <>
+          <Hero stats={stats} />
+          <footer className="py-12 text-center text-slate-400 text-xs font-bold uppercase border-t">
+            © 2026 Anshuman Khare
           </footer>
-        </div>
+        </>
       );
     };
 
-    const root = ReactDOM.createRoot(document.getElementById("root"));
-    root.render(<App />);
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
   </script>
 </body>
 </html>
