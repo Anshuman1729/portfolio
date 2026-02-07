@@ -13,12 +13,13 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
         .tab-transition { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .metric-card:hover { transform: translateY(-4px); }
     </style>
 </head>
-<body class="bg-slate-950 text-slate-200">
+<body class="bg-slate-50 text-slate-900">
     <div id="root"></div>
 
     <script type="text/babel">
@@ -88,36 +89,36 @@
             return (
                 <div className="min-h-screen">
                     {/* Navigation */}
-                    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-950/80 backdrop-blur-md border-b border-slate-800 py-4' : 'bg-transparent py-6'}`}>
+                    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md border-b border-slate-200 py-4 shadow-sm' : 'bg-transparent py-6'}`}>
                         <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
-                            <span className="text-xl font-bold tracking-tight text-white">ANSHUMAN<span className="text-indigo-500">KHARE</span></span>
-                            <div className="hidden md:flex gap-8 text-sm font-medium uppercase tracking-widest text-slate-400">
-                                <a href="#about" className="hover:text-white transition-colors">About</a>
-                                <a href="#experience" className="hover:text-white transition-colors">Experience</a>
-                                <a href="#skills" className="hover:text-white transition-colors">Skills</a>
-                                <a href="mailto:khare.anshuman47@gmail.com" className="text-indigo-400 hover:text-indigo-300 transition-colors">Contact</a>
+                            <span className="text-xl font-extrabold tracking-tight text-slate-900">ANSHUMAN<span className="text-indigo-600">KHARE</span></span>
+                            <div className="hidden md:flex gap-8 text-sm font-semibold uppercase tracking-widest text-slate-600">
+                                <a href="#about" className="hover:text-indigo-600 transition-colors">About</a>
+                                <a href="#experience" className="hover:text-indigo-600 transition-colors">Experience</a>
+                                <a href="#skills" className="hover:text-indigo-600 transition-colors">Skills</a>
+                                <a href="mailto:khare.anshuman47@gmail.com" className="text-indigo-600 hover:text-indigo-700 transition-colors">Contact</a>
                             </div>
                         </div>
                     </nav>
 
                     {/* Hero Section */}
-                    <section id="about" className="pt-32 pb-20 px-6">
+                    <section id="about" className="pt-32 pb-20 px-6 bg-white">
                         <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
                             <div className="space-y-8">
-                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold uppercase tracking-widest">
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs font-bold uppercase tracking-widest">
                                     <Icon name="trending-up" size={14} /> Growth & Performance Marketing
                                 </div>
-                                <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
-                                    Scaling Growth Through <span className="text-indigo-500">Analytical Rigor.</span>
+                                <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 leading-tight">
+                                    Scaling Growth With <span className="text-indigo-600 italic">Precision.</span>
                                 </h1>
-                                <p className="text-lg text-slate-400 max-w-xl leading-relaxed">
-                                    Performance marketer owning P&L outcomes. I specialize in scaling topline revenue while improving unit economics (CM2, LTV/CAC) through lifecycle-led growth.
+                                <p className="text-lg text-slate-600 max-w-xl leading-relaxed">
+                                    Performance marketer owning acquisition and P&L outcomes. I scale topline revenue while improving unit economics (CM2, LTV/CAC) through analytical rigor and lifecycle-led growth.
                                 </p>
                                 <div className="flex flex-wrap gap-4 pt-4">
-                                    <a href="mailto:khare.anshuman47@gmail.com" className="px-8 py-4 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl font-bold transition-all shadow-lg shadow-indigo-600/20 flex items-center gap-2">
+                                    <a href="mailto:khare.anshuman47@gmail.com" className="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-indigo-600/30 flex items-center gap-2">
                                         Get in Touch <Icon name="mail" />
                                     </a>
-                                    <a href="https://www.linkedin.com/in/anshuman-khare-8207161bb/" target="_blank" className="px-8 py-4 bg-slate-900 hover:bg-slate-800 text-white border border-slate-800 rounded-xl font-bold transition-all flex items-center gap-2">
+                                    <a href="https://www.linkedin.com/in/anshumankhare/" target="_blank" className="px-8 py-4 bg-white hover:bg-slate-50 text-slate-900 border border-slate-200 rounded-xl font-bold transition-all shadow-sm flex items-center gap-2">
                                         LinkedIn <Icon name="linkedin" />
                                     </a>
                                 </div>
@@ -125,10 +126,10 @@
                             
                             <div className="grid grid-cols-2 gap-4">
                                 {stats.map((stat, idx) => (
-                                    <div key={idx} className="p-6 bg-slate-900/50 border border-slate-800 rounded-2xl hover:border-indigo-500/50 transition-all group">
-                                        <p className="text-indigo-400 text-sm font-medium mb-1">{stat.label}</p>
-                                        <h3 className="text-3xl font-bold text-white mb-1 group-hover:scale-105 transition-transform origin-left">{stat.value}</h3>
-                                        <p className="text-slate-500 text-xs uppercase tracking-wider">{stat.sub}</p>
+                                    <div key={idx} className="metric-card p-6 bg-slate-50 border border-slate-100 rounded-2xl transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/5 group">
+                                        <p className="text-indigo-600 text-sm font-semibold mb-1">{stat.label}</p>
+                                        <h3 className="text-3xl font-bold text-slate-900 mb-1 group-hover:scale-105 transition-transform origin-left">{stat.value}</h3>
+                                        <p className="text-slate-500 text-xs uppercase tracking-wider font-medium">{stat.sub}</p>
                                     </div>
                                 ))}
                             </div>
@@ -136,19 +137,19 @@
                     </section>
 
                     {/* Content Section */}
-                    <section id="experience" className="py-20 px-6 bg-slate-900/30">
+                    <section id="experience" className="py-20 px-6 bg-slate-50/50">
                         <div className="max-w-4xl mx-auto">
                             <div className="flex justify-center mb-12">
-                                <div className="bg-slate-900 p-1 rounded-xl border border-slate-800 inline-flex">
+                                <div className="bg-slate-100 p-1 rounded-xl border border-slate-200 inline-flex">
                                     <button 
                                         onClick={() => setActiveTab('experience')}
-                                        className={`px-8 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'experience' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'text-slate-500 hover:text-slate-300'}`}
+                                        className={`px-8 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'experience' ? 'bg-white text-indigo-600 shadow-md' : 'text-slate-500 hover:text-slate-700'}`}
                                     >
                                         Experience
                                     </button>
                                     <button 
                                         onClick={() => setActiveTab('skills')}
-                                        className={`px-8 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'skills' ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-600/20' : 'text-slate-500 hover:text-slate-300'}`}
+                                        className={`px-8 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'skills' ? 'bg-white text-indigo-600 shadow-md' : 'text-slate-500 hover:text-slate-700'}`}
                                     >
                                         Skills & Stack
                                     </button>
@@ -158,22 +159,22 @@
                             {activeTab === 'experience' ? (
                                 <div className="space-y-12 animate-fadeIn">
                                     {experience.map((exp, idx) => (
-                                        <div key={idx} className="relative pl-8 border-l border-slate-800 group">
-                                            <div className="absolute -left-[5px] top-0 w-[9px] h-[9px] rounded-full bg-indigo-500 group-hover:scale-150 transition-transform shadow-[0_0_10px_rgba(99,102,241,0.5)]" />
-                                            <div className="flex flex-wrap justify-between items-start mb-4">
+                                        <div key={idx} className="relative pl-8 border-l-2 border-slate-200 group">
+                                            <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-white border-2 border-indigo-600 group-hover:bg-indigo-600 transition-colors shadow-sm" />
+                                            <div className="flex flex-wrap justify-between items-start mb-6">
                                                 <div>
-                                                    <h3 className="text-2xl font-bold text-white">{exp.company}</h3>
-                                                    <p className="text-indigo-400 font-medium">{exp.role}</p>
+                                                    <h3 className="text-2xl font-bold text-slate-900">{exp.company}</h3>
+                                                    <p className="text-indigo-600 font-bold">{exp.role}</p>
                                                 </div>
                                                 <div className="text-right">
-                                                    <p className="text-white text-sm font-bold">{exp.period}</p>
-                                                    <p className="text-slate-500 text-xs">{exp.location}</p>
+                                                    <p className="text-slate-900 text-sm font-bold">{exp.period}</p>
+                                                    <p className="text-slate-500 text-xs font-semibold">{exp.location}</p>
                                                 </div>
                                             </div>
                                             <ul className="space-y-4">
                                                 {exp.highlights.map((item, i) => (
-                                                    <li key={i} className="flex gap-3 text-slate-400 leading-relaxed">
-                                                        <Icon name="chevron-right" size={16} className="shrink-0 text-indigo-500 mt-1" />
+                                                    <li key={i} className="flex gap-3 text-slate-600 leading-relaxed font-medium">
+                                                        <Icon name="chevron-right" size={16} className="shrink-0 text-indigo-600 mt-1" />
                                                         {item}
                                                     </li>
                                                 ))}
@@ -184,11 +185,11 @@
                             ) : (
                                 <div className="grid md:grid-cols-2 gap-6 animate-fadeIn">
                                     {skills.map((group, idx) => (
-                                        <div key={idx} className="p-6 bg-slate-900/50 border border-slate-800 rounded-2xl">
-                                            <h4 className="text-white font-bold mb-4 uppercase tracking-widest text-xs border-b border-slate-800 pb-2">{group.category}</h4>
+                                        <div key={idx} className="p-8 bg-white border border-slate-200 rounded-3xl shadow-sm hover:border-indigo-100 transition-colors">
+                                            <h4 className="text-slate-400 font-bold mb-6 uppercase tracking-widest text-[10px] border-b border-slate-100 pb-2">{group.category}</h4>
                                             <div className="flex flex-wrap gap-2">
                                                 {group.items.map((item, i) => (
-                                                    <span key={i} className="px-3 py-1 bg-slate-800 text-slate-300 rounded-lg text-sm border border-slate-700">
+                                                    <span key={i} className="px-3 py-1.5 bg-slate-50 text-slate-700 rounded-lg text-sm font-semibold border border-slate-200">
                                                         {item}
                                                     </span>
                                                 ))}
@@ -200,42 +201,51 @@
                         </div>
                     </section>
 
-                    {/* Leadership & Contact */}
-                    <section className="py-20 px-6">
-                        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
-                            <div className="p-8 bg-gradient-to-br from-indigo-900/20 to-transparent border border-indigo-500/10 rounded-3xl">
-                                <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
-                                    <Icon name="target" className="text-indigo-500" /> Leadership & Impact
+                    {/* Leadership & Education */}
+                    <section className="py-20 px-6 bg-white">
+                        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+                            <div className="p-10 bg-indigo-600 text-white rounded-[2rem] shadow-xl shadow-indigo-200">
+                                <h3 className="text-2xl font-bold mb-8 flex items-center gap-3">
+                                    <Icon name="target" className="text-indigo-200" /> Leadership
                                 </h3>
-                                <div className="space-y-6">
+                                <div className="space-y-8">
                                     <div>
-                                        <h4 className="text-white font-bold">SRM Alumni Affairs – Admin</h4>
-                                        <p className="text-slate-400 text-sm mt-2">
+                                        <h4 className="text-xl font-bold">SRM Alumni Affairs – Admin</h4>
+                                        <p className="text-indigo-100 mt-3 leading-relaxed">
                                             Led a 200+ member team. Boosted Instagram following by 20% and creative output by 30% through systems implementation.
                                         </p>
                                     </div>
-                                    <div>
-                                        <h4 className="text-white font-bold">Leadership Summit</h4>
-                                        <p className="text-slate-400 text-sm mt-2">
+                                    <div className="pt-6 border-t border-indigo-500">
+                                        <h4 className="text-xl font-bold">Leadership Summit</h4>
+                                        <p className="text-indigo-100 mt-3 leading-relaxed">
                                             Delivered high-visibility short-film project under a critical 5-day timeline.
                                         </p>
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="p-8 bg-slate-900/50 border border-slate-800 rounded-3xl">
-                                <h3 className="text-xl font-bold text-white mb-6">Contact & Education</h3>
+                            <div className="p-10 bg-slate-50 border border-slate-200 rounded-[2rem]">
+                                <h3 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-3">
+                                    <Icon name="book-open" className="text-indigo-600" /> Education
+                                </h3>
                                 <div className="space-y-6">
                                     <div>
-                                        <h4 className="text-white font-bold text-lg">SRM Institute of Science and Technology</h4>
-                                        <p className="text-indigo-400">B.Tech, Electrical and Electronics Engineering (9.19 CGPA)</p>
-                                    </div>
-                                    <div className="pt-6 border-t border-slate-800 space-y-3">
-                                        <div className="flex items-center gap-3 text-slate-400">
-                                            <Icon name="map-pin" size={16} className="text-indigo-500" /> Bengaluru, Karnataka
+                                        <h4 className="text-xl font-bold text-slate-900">SRM Institute of Science and Technology</h4>
+                                        <p className="text-indigo-600 font-bold">B.Tech, Electrical and Electronics Engineering</p>
+                                        <div className="flex items-center gap-4 mt-3">
+                                            <span className="text-slate-600 font-bold">CGPA: 9.19</span>
+                                            <span className="text-slate-300">|</span>
+                                            <span className="text-slate-500 text-xs font-bold uppercase tracking-wider">2020 – 2024</span>
                                         </div>
-                                        <div className="flex items-center gap-3 text-slate-400 underline underline-offset-4 decoration-indigo-500/50">
-                                            <Icon name="mail" size={16} className="text-indigo-500" /> khare.anshuman47@gmail.com
+                                    </div>
+                                    <div className="pt-8 border-t border-slate-200 space-y-4">
+                                        <h4 className="text-slate-900 font-bold">Connect with Me</h4>
+                                        <div className="flex items-center gap-4 text-slate-600">
+                                            <Icon name="map-pin" size={20} className="text-indigo-600" /> Bengaluru, Karnataka
+                                        </div>
+                                        <div className="flex items-center gap-4 text-slate-900 font-bold">
+                                            <Icon name="mail" size={20} className="text-indigo-600" /> 
+                                            <a href="mailto:khare.anshuman47@gmail.com" className="hover:text-indigo-600">khare.anshuman47@gmail.com</a>
                                         </div>
                                     </div>
                                 </div>
@@ -243,8 +253,8 @@
                         </div>
                     </section>
 
-                    <footer className="py-12 text-center text-slate-600 text-sm border-t border-slate-900">
-                        <p>© 2026 Anshuman Khare | Built for scale.</p>
+                    <footer className="py-12 text-center text-slate-400 text-xs font-bold uppercase tracking-[0.2em] border-t border-slate-100">
+                        <p>© 2026 Anshuman Khare • Built for Growth</p>
                     </footer>
                 </div>
             );
