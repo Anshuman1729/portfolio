@@ -1,9 +1,267 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Test</title>
-  </head>
-  <body>
-    <h1>HELLO WORLD</h1>
-  </body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anshuman Khare | Portfolio</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- React & Babel for browser-side JSX compilation -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        .tab-transition { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .metric-card:hover { transform: translateY(-4px); }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Custom Icon Component to handle Lucide in CDN environment
+        const Icon = ({ name, size = 18, className = "" }) => {
+            useEffect(() => {
+                if (window.lucide) {
+                    window.lucide.createIcons();
+                }
+            }, [name]);
+            return <i data-lucide={name} className={className} style={{ width: size, height: size }}></i>;
+        };
+
+        const App = () => {
+            const [activeTab, setActiveTab] = useState('experience');
+            const [scrolled, setScrolled] = useState(false);
+
+            useEffect(() => {
+                const handleScroll = () => setScrolled(window.scrollY > 50);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            const stats = [
+                { label: 'Revenue Growth', value: '₹2.5Cr+', sub: 'Monthly Baseline' },
+                { label: 'Peak Revenue', value: '₹5Cr', sub: 'During Cycles' },
+                { label: 'ROAS Improvement', value: '200%', sub: 'from 150%' },
+                { label: 'CAC Reduction', value: '20%', sub: 'Urban Company' },
+            ];
+
+            const experience = [
+                {
+                    company: "AppsForBharat",
+                    role: "Performance Marketing Associate",
+                    period: "Aug 2024 - Present",
+                    location: "Bengaluru, KA",
+                    highlights: [
+                        "Scaled non-peak monthly revenue from ₹80L to ₹2.5Cr baseline.",
+                        "Drove peak-period revenue to ₹5Cr via global/NRI market expansion.",
+                        "Managed ₹1Cr+ monthly Meta ad spends across international geographies.",
+                        "Doubled Email revenue to ₹17L/month and scaled WhatsApp/Push channels.",
+                        "Improved ROAS from 150% to 200% while reducing CAC by 15%."
+                    ]
+                },
+                {
+                    company: "ET Medialabs",
+                    role: "Associate, Business Strategy & Analysis",
+                    period: "Jan 2024 - Aug 2024",
+                    location: "Noida, UP",
+                    highlights: [
+                        "Reduced CAC by 20% and increased new users by 25% for Urban Company.",
+                        "Achieved 22% revenue growth for an Indian luxury fashion brand.",
+                        "Maintained a stable 6.4 ROAS through custom intent audiences and PMax campaigns."
+                    ]
+                }
+            ];
+
+            const skills = [
+                { category: "Core Expertise", items: ["Revenue Ownership", "CM2 & Unit Economics", "LTV/CAC Optimization", "GTM Strategy"] },
+                { category: "Channels", items: ["Meta Ads", "Google Ads", "Email", "WhatsApp & Push"] },
+                { category: "Analysis", items: ["Mixpanel", "Cohort Analysis", "Funnel Optimization", "Pricing Experiments"] },
+                { category: "Modern Ops", items: ["AI Prompting", "Ops Automation", "Lifecycle Monetization"] }
+            ];
+
+            return (
+                <div className="min-h-screen">
+                    {/* Navigation */}
+                    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md border-b border-slate-200 py-4 shadow-sm' : 'bg-transparent py-6'}`}>
+                        <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
+                            <span className="text-xl font-extrabold tracking-tight text-slate-900">ANSHUMAN<span className="text-indigo-600">KHARE</span></span>
+                            <div className="hidden md:flex gap-8 text-sm font-semibold uppercase tracking-widest text-slate-600">
+                                <a href="#about" className="hover:text-indigo-600 transition-colors">About</a>
+                                <a href="#experience" className="hover:text-indigo-600 transition-colors">Experience</a>
+                                <a href="#skills" className="hover:text-indigo-600 transition-colors">Skills</a>
+                                <a href="mailto:khare.anshuman47@gmail.com" className="text-indigo-600 hover:text-indigo-700 transition-colors">Contact</a>
+                            </div>
+                        </div>
+                    </nav>
+
+                    {/* Hero Section */}
+                    <section id="about" className="pt-32 pb-20 px-6 bg-white">
+                        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+                            <div className="space-y-8">
+                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs font-bold uppercase tracking-widest">
+                                    <Icon name="trending-up" size={14} /> Growth & Performance Marketing
+                                </div>
+                                <h1 className="text-5xl md:text-7xl font-extrabold text-slate-900 leading-tight">
+                                    Scaling Growth With <span className="text-indigo-600 italic">Precision.</span>
+                                </h1>
+                                <p className="text-lg text-slate-600 max-w-xl leading-relaxed">
+                                    Performance marketer owning acquisition and P&L outcomes. I scale topline revenue while improving unit economics (CM2, LTV/CAC) through analytical rigor and lifecycle-led growth.
+                                </p>
+                                <div className="flex flex-wrap gap-4 pt-4">
+                                    <a href="mailto:khare.anshuman47@gmail.com" className="px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold transition-all shadow-lg shadow-indigo-600/30 flex items-center gap-2">
+                                        Get in Touch <Icon name="mail" />
+                                    </a>
+                                    <a href="https://www.linkedin.com/in/anshumankhare/" target="_blank" className="px-8 py-4 bg-white hover:bg-slate-50 text-slate-900 border border-slate-200 rounded-xl font-bold transition-all shadow-sm flex items-center gap-2">
+                                        LinkedIn <Icon name="linkedin" />
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div className="grid grid-cols-2 gap-4">
+                                {stats.map((stat, idx) => (
+                                    <div key={idx} className="metric-card p-6 bg-slate-50 border border-slate-100 rounded-2xl transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/5 group">
+                                        <p className="text-indigo-600 text-sm font-semibold mb-1">{stat.label}</p>
+                                        <h3 className="text-3xl font-bold text-slate-900 mb-1 group-hover:scale-105 transition-transform origin-left">{stat.value}</h3>
+                                        <p className="text-slate-500 text-xs uppercase tracking-wider font-medium">{stat.sub}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    {/* Content Section */}
+                    <section id="experience" className="py-20 px-6 bg-slate-50/50">
+                        <div className="max-w-4xl mx-auto">
+                            <div className="flex justify-center mb-12">
+                                <div className="bg-slate-100 p-1 rounded-xl border border-slate-200 inline-flex">
+                                    <button 
+                                        onClick={() => setActiveTab('experience')}
+                                        className={`px-8 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'experience' ? 'bg-white text-indigo-600 shadow-md' : 'text-slate-500 hover:text-slate-700'}`}
+                                    >
+                                        Experience
+                                    </button>
+                                    <button 
+                                        onClick={() => setActiveTab('skills')}
+                                        className={`px-8 py-2 rounded-lg text-sm font-bold transition-all ${activeTab === 'skills' ? 'bg-white text-indigo-600 shadow-md' : 'text-slate-500 hover:text-slate-700'}`}
+                                    >
+                                        Skills & Stack
+                                    </button>
+                                </div>
+                            </div>
+
+                            {activeTab === 'experience' ? (
+                                <div className="space-y-12 animate-fadeIn">
+                                    {experience.map((exp, idx) => (
+                                        <div key={idx} className="relative pl-8 border-l-2 border-slate-200 group">
+                                            <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-white border-2 border-indigo-600 group-hover:bg-indigo-600 transition-colors shadow-sm" />
+                                            <div className="flex flex-wrap justify-between items-start mb-6">
+                                                <div>
+                                                    <h3 className="text-2xl font-bold text-slate-900">{exp.company}</h3>
+                                                    <p className="text-indigo-600 font-bold">{exp.role}</p>
+                                                </div>
+                                                <div className="text-right">
+                                                    <p className="text-slate-900 text-sm font-bold">{exp.period}</p>
+                                                    <p className="text-slate-500 text-xs font-semibold">{exp.location}</p>
+                                                </div>
+                                            </div>
+                                            <ul className="space-y-4">
+                                                {exp.highlights.map((item, i) => (
+                                                    <li key={i} className="flex gap-3 text-slate-600 leading-relaxed font-medium">
+                                                        <Icon name="chevron-right" size={16} className="shrink-0 text-indigo-600 mt-1" />
+                                                        {item}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="grid md:grid-cols-2 gap-6 animate-fadeIn">
+                                    {skills.map((group, idx) => (
+                                        <div key={idx} className="p-8 bg-white border border-slate-200 rounded-3xl shadow-sm hover:border-indigo-100 transition-colors">
+                                            <h4 className="text-slate-400 font-bold mb-6 uppercase tracking-widest text-[10px] border-b border-slate-100 pb-2">{group.category}</h4>
+                                            <div className="flex flex-wrap gap-2">
+                                                {group.items.map((item, i) => (
+                                                    <span key={i} className="px-3 py-1.5 bg-slate-50 text-slate-700 rounded-lg text-sm font-semibold border border-slate-200">
+                                                        {item}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
+                    </section>
+
+                    {/* Leadership & Education */}
+                    <section className="py-20 px-6 bg-white">
+                        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+                            <div className="p-10 bg-indigo-600 text-white rounded-[2rem] shadow-xl shadow-indigo-200">
+                                <h3 className="text-2xl font-bold mb-8 flex items-center gap-3">
+                                    <Icon name="target" className="text-indigo-200" /> Leadership
+                                </h3>
+                                <div className="space-y-8">
+                                    <div>
+                                        <h4 className="text-xl font-bold">SRM Alumni Affairs – Admin</h4>
+                                        <p className="text-indigo-100 mt-3 leading-relaxed">
+                                            Led a 200+ member team. Boosted Instagram following by 20% and creative output by 30% through systems implementation.
+                                        </p>
+                                    </div>
+                                    <div className="pt-6 border-t border-indigo-500">
+                                        <h4 className="text-xl font-bold">Leadership Summit</h4>
+                                        <p className="text-indigo-100 mt-3 leading-relaxed">
+                                            Delivered high-visibility short-film project under a critical 5-day timeline.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="p-10 bg-slate-50 border border-slate-200 rounded-[2rem]">
+                                <h3 className="text-2xl font-bold text-slate-900 mb-8 flex items-center gap-3">
+                                    <Icon name="book-open" className="text-indigo-600" /> Education
+                                </h3>
+                                <div className="space-y-6">
+                                    <div>
+                                        <h4 className="text-xl font-bold text-slate-900">SRM Institute of Science and Technology</h4>
+                                        <p className="text-indigo-600 font-bold">B.Tech, Electrical and Electronics Engineering</p>
+                                        <div className="flex items-center gap-4 mt-3">
+                                            <span className="text-slate-600 font-bold">CGPA: 9.19</span>
+                                            <span className="text-slate-300">|</span>
+                                            <span className="text-slate-500 text-xs font-bold uppercase tracking-wider">2020 – 2024</span>
+                                        </div>
+                                    </div>
+                                    <div className="pt-8 border-t border-slate-200 space-y-4">
+                                        <h4 className="text-slate-900 font-bold">Connect with Me</h4>
+                                        <div className="flex items-center gap-4 text-slate-600">
+                                            <Icon name="map-pin" size={20} className="text-indigo-600" /> Bengaluru, Karnataka
+                                        </div>
+                                        <div className="flex items-center gap-4 text-slate-900 font-bold">
+                                            <Icon name="mail" size={20} className="text-indigo-600" /> 
+                                            <a href="mailto:khare.anshuman47@gmail.com" className="hover:text-indigo-600">khare.anshuman47@gmail.com</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <footer className="py-12 text-center text-slate-400 text-xs font-bold uppercase tracking-[0.2em] border-t border-slate-100">
+                        <p>© 2026 Anshuman Khare • Built for Growth</p>
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
 </html>
