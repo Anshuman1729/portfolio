@@ -275,21 +275,19 @@
     
         try {
           const response = await fetch(
-            "https://script.google.com/macros/s/AKfycbxrqbbYgi8BGntpeKu-UKH4SQWqNPLc1xBjKr9MvBueTh61w7kH_Qm1KaRov3pkgHXUGw/exec",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                name,
-                email,
-                phone,
-                query,
-                source: "portfolio",
-              }),
-            }
-          );
+              "https://script.google.com/macros/s/AKfycbxrqbbYgi8BGntpeKu-UKH4SQWqNPLc1xBjKr9MvBueTh61w7kH_Qm1KaRov3pkgHXUGw/exec",
+              {
+                method: "POST",
+                body: JSON.stringify({
+                  name,
+                  email,
+                  phone,
+                  query,
+                  source: "portfolio",
+                }),
+              }
+            );
+
     
           const result = await response.json();
     
