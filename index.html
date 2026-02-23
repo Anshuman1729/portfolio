@@ -13,7 +13,7 @@
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
-  <!-- Icons -->
+  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
@@ -33,7 +33,6 @@ const Icon = ({ name, size = 18, className = "" }) => {
   useEffect(() => {
     if (window.lucide) window.lucide.createIcons();
   }, [name]);
-
   return <i data-lucide={name} className={className} style={{ width: size, height: size }}></i>;
 };
 
@@ -59,7 +58,7 @@ const App = () => {
     {
       company: "Meesho",
       role: "Senior Associate – Performance Marketing",
-      period: "Mar 2026 – Present",
+      period: "Mar 2026 – Current",
       location: "Bengaluru, KA",
       highlights: [
         "Leading performance marketing initiatives focused on scalable and efficient growth.",
@@ -96,7 +95,7 @@ const App = () => {
   return (
     <div className="min-h-screen">
 
-      {/* NAV */}
+      {/* NAVIGATION */}
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md border-b border-slate-200 py-4 shadow-sm' : 'bg-transparent py-6'}`}>
         <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
           <span className="text-xl font-extrabold tracking-tight">
@@ -133,7 +132,7 @@ const App = () => {
 
           <div className="grid grid-cols-2 gap-4">
             {stats.map((stat, idx) => (
-              <div key={idx} className="metric-card p-6 bg-slate-50 border border-slate-100 rounded-2xl transition-all duration-300 hover:shadow-xl hover:shadow-indigo-500/5">
+              <div key={idx} className="metric-card p-6 bg-slate-50 border border-slate-100 rounded-2xl hover:shadow-xl hover:shadow-indigo-500/5 transition-all">
                 <h3 className="text-xl font-semibold text-slate-900">
                   {stat.value}
                 </h3>
@@ -150,7 +149,6 @@ const App = () => {
           {experience.map((exp, idx) => (
             <div key={idx} className="relative pl-8 border-l-2 border-slate-200">
               <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-white border-2 border-indigo-600" />
-
               <div className="flex flex-wrap justify-between items-start mb-6">
                 <div>
                   <h3 className="text-2xl font-bold">{exp.company}</h3>
@@ -161,7 +159,6 @@ const App = () => {
                   <p className="text-xs text-slate-500">{exp.location}</p>
                 </div>
               </div>
-
               <ul className="space-y-3 text-slate-600">
                 {exp.highlights.map((item, i) => (
                   <li key={i} className="flex gap-3">
@@ -175,8 +172,50 @@ const App = () => {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="py-12 text-center text-slate-400 text-xs font-bold uppercase tracking-[0.2em] border-t border-slate-100">
+      {/* EDUCATION + LEAD FORM */}
+      <section className="py-20 px-6 bg-white">
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+
+          {/* EDUCATION */}
+          <div className="p-10 bg-slate-50 border border-slate-200 rounded-[2rem] shadow-sm">
+            <h3 className="text-2xl font-bold mb-8 flex items-center gap-3">
+              <Icon name="book-open" className="text-indigo-600" />
+              Education
+            </h3>
+            <h4 className="text-xl font-bold">
+              SRM Institute of Science and Technology
+            </h4>
+            <p className="text-indigo-600 font-semibold">
+              B.Tech, Electrical & Electronics Engineering
+            </p>
+            <div className="mt-4 text-slate-600">
+              CGPA: 9.19 | 2020 – 2024
+            </div>
+          </div>
+
+          {/* LEAD FORM */}
+          <div className="p-10 bg-white border border-slate-200 rounded-[2rem] shadow-sm">
+            <h3 className="text-2xl font-bold mb-6">Work With Me</h3>
+            <p className="text-slate-600 mb-8">
+              If you’re building growth where unit economics matter,
+              leave a note and I’ll get back.
+            </p>
+
+            <form className="space-y-4">
+              <input type="text" placeholder="Your name" className="w-full px-4 py-3 border rounded-xl" />
+              <input type="email" placeholder="Email (optional)" className="w-full px-4 py-3 border rounded-xl" />
+              <input type="tel" placeholder="Phone (optional)" className="w-full px-4 py-3 border rounded-xl" />
+              <textarea required placeholder="What would you like to discuss?" rows="4" className="w-full px-4 py-3 border rounded-xl"></textarea>
+              <button type="submit" className="w-full px-6 py-4 bg-indigo-600 text-white font-bold rounded-xl">
+                Send Message
+              </button>
+            </form>
+          </div>
+
+        </div>
+      </section>
+
+      <footer className="py-12 text-center text-slate-400 text-xs font-bold uppercase tracking-widest border-t border-slate-100">
         © 2026 Anshuman Khare • Built for Growth
       </footer>
 
