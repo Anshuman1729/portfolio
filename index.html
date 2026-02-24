@@ -385,11 +385,17 @@
     .foot-links a:hover { color: var(--blue); }
 
     /* ── ANIMATIONS ──────────────────────────────────────── */
-    .fade-up {
-      opacity: 0; transform: translateY(28px);
+    /* Default: visible. JS adds .js-ready to body to enable animations.
+       This guarantees content shows even if observer never fires. */
+    body.js-ready .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
       transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
     }
-    .fade-up.in { opacity: 1; transform: translateY(0); }
+    body.js-ready .fade-up.in {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     /* ── RESPONSIVE ──────────────────────────────────────── */
     @media (max-width: 860px) {
@@ -791,6 +797,9 @@
 </footer>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ── Mark body as JS-ready (enables animations safely)
+  document.body.classList.add('js-ready');
+
   // ── Nav scroll state
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
@@ -798,6 +807,8 @@
   }, { passive: true });
 
   // ── Scroll reveal with per-grid stagger
+  const allFadeEls = document.querySelectorAll('.fade-up');
+
   const io = new IntersectionObserver((entries) => {
     const byParent = new Map();
     entries.forEach(e => {
@@ -812,9 +823,14 @@
         io.unobserve(el);
       });
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+  }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
 
-  document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+  allFadeEls.forEach(el => io.observe(el));
+
+  // Fallback: if observer hasn't fired after 800ms, reveal everything
+  setTimeout(() => {
+    document.querySelectorAll('.fade-up:not(.in)').forEach(el => el.classList.add('in'));
+  }, 800);
 
   // ── Homepage newsletter form
   const hpForm   = document.getElementById('hp-nl-form');
