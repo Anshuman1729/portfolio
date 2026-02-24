@@ -3,67 +3,824 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Writing | Anshuman Khare</title>
 
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- SEO -->
+  <title>Writing — Anshuman Khare</title>
+  <meta name="description" content="Essays on performance marketing, growth systems, and unit economics by Anshuman Khare." />
+  <meta name="author" content="Anshuman Khare" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Writing — Anshuman Khare" />
+  <meta property="og:description" content="Essays on performance marketing, growth systems, and unit economics." />
+  <meta property="og:type" content="website" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230057FF'/><text x='50' y='72' font-size='62' text-anchor='middle' fill='white' font-family='serif'>A</text></svg>" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet" />
+
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    /* ── TOKENS ─────────────────────────────────────── */
+    :root {
+      --bg:         #ffffff;
+      --bg-off:     #f7f7f5;
+      --bg-card:    #f2f2f0;
+      --border:     #e8e8e4;
+      --border-mid: #d4d4cc;
+      --text:       #0a0a0a;
+      --text-2:     #3a3a3a;
+      --text-3:     #888880;
+      --text-4:     #c0c0b8;
+      --blue:       #0057FF;
+      --blue-dim:   #0040cc;
+      --blue-light: #e8eeff;
+      --sans:       'Plus Jakarta Sans', system-ui, sans-serif;
+      --ease:       cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── LAYOUT ─────────────────────────────────────── */
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 40px; }
+
+    /* ── NAV ────────────────────────────────────────── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      transition: all 0.4s var(--ease);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 28px 40px;
+      max-width: 1080px; margin: 0 auto;
+      transition: padding 0.4s var(--ease);
+    }
+    #nav.scrolled .nav-inner { padding-top: 16px; padding-bottom: 16px; }
+    #nav.scrolled {
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--sans); font-weight: 700;
+      font-size: 1rem; color: var(--text); letter-spacing: -0.02em;
+    }
+    .nav-links {
+      display: flex; gap: 32px; list-style: none;
+      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.04em;
+      color: var(--text-3);
+    }
+    .nav-links a { transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links .active { color: var(--text); font-weight: 600; }
+    .nav-cta {
+      color: var(--blue) !important;
+      padding: 8px 18px;
+      border: 1.5px solid var(--blue);
+      border-radius: 100px;
+      transition: background 0.2s, color 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--blue); color: #fff !important; }
+
+    /* ── PAGE HEADER ────────────────────────────────── */
+    .page-header {
+      padding-top: 140px;
+      padding-bottom: 64px;
+      border-bottom: 1px solid var(--border);
+    }
+    .eyebrow {
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 14px;
+    }
+    .page-title {
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      line-height: 0.95; color: var(--text);
+      margin-bottom: 20px;
+    }
+    .page-sub {
+      font-size: 1rem; color: var(--text-3);
+      max-width: 480px; line-height: 1.65;
+    }
+
+    /* ── FEATURED POST ──────────────────────────────── */
+    .featured-wrap {
+      padding: 72px 0 56px;
+      border-bottom: 1px solid var(--border);
+    }
+    .featured-label {
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text-4); margin-bottom: 28px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .featured-label::after {
+      content: ''; flex: 1; height: 1px; background: var(--border);
+    }
+
+    .featured-card {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--border);
+      transition: box-shadow 0.3s var(--ease);
+      cursor: pointer;
+    }
+    .featured-card:hover {
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    }
+    .featured-card:hover .featured-title { color: var(--blue); }
+    .featured-card:hover .featured-arrow { transform: translate(4px, -4px); color: var(--blue); }
+
+    .featured-body {
+      padding: 52px 48px;
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      background: var(--bg);
+    }
+    .featured-meta {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 24px;
+    }
+    .tag {
+      font-size: 0.68rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--blue);
+      background: var(--blue-light);
+      padding: 4px 12px; border-radius: 100px;
+    }
+    .read-time {
+      font-size: 0.75rem; color: var(--text-4);
+    }
+    .featured-title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 700; letter-spacing: -0.025em;
+      line-height: 1.15; color: var(--text);
+      margin-bottom: 20px;
+      transition: color 0.2s;
+    }
+    .featured-excerpt {
+      font-size: 0.92rem; color: var(--text-3);
+      line-height: 1.7; margin-bottom: 36px;
+    }
+    .featured-footer {
+      display: flex; align-items: center;
+      justify-content: space-between;
+    }
+    .post-date {
+      font-size: 0.75rem; color: var(--text-4);
+      letter-spacing: 0.04em;
+    }
+    .featured-arrow {
+      font-size: 1.1rem; color: var(--text-3);
+      transition: transform 0.25s var(--ease), color 0.2s;
+    }
+
+    /* Featured visual panel */
+    .featured-visual {
+      background: var(--bg-off);
+      display: flex; align-items: center; justify-content: center;
+      padding: 52px;
+      position: relative; overflow: hidden;
+      border-left: 1px solid var(--border);
+      min-height: 320px;
+    }
+    .featured-visual::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 40px 40px;
+      opacity: 0.6;
+    }
+    .visual-stat {
+      position: relative; z-index: 1;
+      text-align: center;
+    }
+    .visual-num {
+      font-size: 5rem; font-weight: 800;
+      letter-spacing: -0.04em; color: var(--text);
+      line-height: 1;
+    }
+    .visual-num span { color: var(--blue); }
+    .visual-label {
+      font-size: 0.78rem; font-weight: 500;
+      color: var(--text-3); letter-spacing: 0.04em;
+      margin-top: 8px;
+    }
+
+    /* Coming soon overlay */
+    .coming-soon-badge {
+      position: absolute; top: 20px; right: 20px;
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text-3);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 5px 12px; border-radius: 100px;
+    }
+
+    /* ── FILTERS ────────────────────────────────────── */
+    .filters-wrap {
+      padding: 36px 0 0;
+      display: flex; align-items: center;
+      gap: 8px; flex-wrap: wrap;
+    }
+    .filter-btn {
+      font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 7px 16px; border-radius: 100px;
+      border: 1.5px solid var(--border);
+      background: transparent; color: var(--text-3);
+      cursor: pointer; transition: all 0.2s;
+    }
+    .filter-btn:hover { border-color: var(--text-3); color: var(--text); }
+    .filter-btn.active {
+      background: var(--blue); border-color: var(--blue);
+      color: #fff;
+    }
+
+    /* ── ARTICLE LIST ───────────────────────────────── */
+    .articles-wrap { padding-bottom: 100px; }
+
+    .article-row {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      align-items: start;
+      gap: 28px;
+      padding: 32px 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: padding-left 0.3s var(--ease);
+      text-decoration: none;
+      color: inherit;
+    }
+    .article-row:first-child { border-top: 1px solid var(--border); }
+    .article-row:hover { padding-left: 10px; }
+    .article-row:hover .a-title { color: var(--blue); }
+    .article-row:hover .a-arrow { color: var(--blue); transform: translate(3px, -3px); }
+
+    .a-num {
+      font-size: 0.78rem; font-weight: 700;
+      color: var(--text-4); letter-spacing: 0.04em;
+      padding-top: 3px;
+    }
+    .a-body { display: flex; flex-direction: column; gap: 8px; }
+    .a-top { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .a-tag {
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-4);
+      background: var(--bg-card);
+      padding: 3px 10px; border-radius: 100px;
+    }
+    .a-title {
+      font-size: 1.05rem; font-weight: 700;
+      letter-spacing: -0.015em; color: var(--text);
+      line-height: 1.3;
+      transition: color 0.2s;
+    }
+    .a-excerpt {
+      font-size: 0.85rem; color: var(--text-3);
+      line-height: 1.6; max-width: 600px;
+    }
+    .a-meta {
+      display: flex; align-items: center; gap: 12px;
+      margin-top: 4px;
+    }
+    .a-date { font-size: 0.72rem; color: var(--text-4); }
+    .a-read { font-size: 0.72rem; color: var(--text-4); }
+
+    .a-right {
+      display: flex; flex-direction: column;
+      align-items: flex-end; gap: 8px;
+      padding-top: 3px;
+    }
+    .a-arrow {
+      font-size: 1rem; color: var(--text-4);
+      transition: color 0.2s, transform 0.25s var(--ease);
+    }
+    .a-status {
+      font-size: 0.65rem; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-4);
+      border: 1px solid var(--border);
+      padding: 3px 10px; border-radius: 100px;
+      white-space: nowrap;
+    }
+    .a-status.live {
+      color: #16a34a;
+      border-color: rgba(34,197,94,0.3);
+      background: rgba(34,197,94,0.06);
+    }
+
+    /* ── NEWSLETTER ─────────────────────────────────── */
+    .newsletter-section {
+      background: var(--bg-off);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 80px 0;
+    }
+    .newsletter-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+    .nl-eyebrow {
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 14px;
+    }
+    .nl-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800; letter-spacing: -0.03em;
+      line-height: 1.05; color: var(--text);
+      margin-bottom: 16px;
+    }
+    .nl-title em { font-style: italic; font-weight: 300; color: var(--blue); }
+    .nl-sub {
+      font-size: 0.92rem; color: var(--text-3);
+      line-height: 1.7; margin-bottom: 0;
+    }
+    .nl-sub strong { color: var(--text-2); font-weight: 600; }
+
+    /* Social proof */
+    .nl-proof {
+      display: flex; align-items: center; gap: 10px;
+      margin-top: 24px;
+    }
+    .nl-proof-text {
+      font-size: 0.78rem; color: var(--text-4);
+    }
+    .nl-proof-dot {
+      width: 4px; height: 4px; border-radius: 50%;
+      background: var(--border-mid);
+    }
+
+    /* Form */
+    .nl-form { display: flex; flex-direction: column; gap: 12px; }
+    .nl-field { display: flex; flex-direction: column; gap: 6px; }
+    .nl-label {
+      font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-3);
+    }
+    .nl-input {
+      width: 100%;
+      background: var(--bg);
+      border: 1.5px solid var(--border); border-radius: 8px;
+      color: var(--text); font-family: var(--sans);
+      font-size: 0.9rem; padding: 14px 16px; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .nl-input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 4px rgba(0,87,255,0.07);
+    }
+    .nl-input::placeholder { color: var(--text-4); }
+    .nl-btn {
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; width: 100%;
+      font-family: var(--sans); font-size: 0.85rem;
+      font-weight: 700; letter-spacing: 0.02em;
+      padding: 15px 24px; border-radius: 8px;
+      background: var(--blue); color: #fff;
+      border: none; cursor: pointer;
+      transition: all 0.25s var(--ease);
+    }
+    .nl-btn:hover {
+      background: var(--blue-dim);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(0,87,255,0.25);
+    }
+    .nl-disclaimer {
+      font-size: 0.72rem; color: var(--text-4);
+      line-height: 1.5; text-align: center;
+    }
+    .nl-status {
+      display: none; font-size: 0.82rem;
+      padding: 12px 16px; border-radius: 8px;
+    }
+    .nl-status.ok  { display: block; background: rgba(34,197,94,0.08); color: #16a34a; border: 1px solid rgba(34,197,94,0.2); }
+    .nl-status.err { display: block; background: rgba(239,68,68,0.08); color: #dc2626; border: 1px solid rgba(239,68,68,0.2); }
+
+    /* ── TOPICS ─────────────────────────────────────── */
+    .topics-section { padding: 72px 0; border-bottom: 1px solid var(--border); }
+    .topics-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--border);
+      border: 1px solid var(--border);
+      margin-top: 40px;
+    }
+    .topic-cell {
+      background: var(--bg); padding: 32px 28px;
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+    .topic-cell:hover { background: var(--blue-light); }
+    .topic-cell:hover .topic-name { color: var(--blue); }
+    .topic-icon { font-size: 1.4rem; margin-bottom: 12px; }
+    .topic-name {
+      font-size: 0.88rem; font-weight: 700;
+      color: var(--text); margin-bottom: 4px;
+      transition: color 0.2s; letter-spacing: -0.01em;
+    }
+    .topic-count { font-size: 0.75rem; color: var(--text-4); }
+
+    /* ── FOOTER ─────────────────────────────────────── */
+    footer { padding: 36px 0; }
+    .foot-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .foot-copy { font-size: 0.75rem; color: var(--text-4); }
+    .foot-links { display: flex; gap: 28px; list-style: none; }
+    .foot-links a { font-size: 0.75rem; color: var(--text-4); letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+    .foot-links a:hover { color: var(--blue); }
+
+    /* ── ANIMATIONS ──────────────────────────────────── */
+    .fade-up {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+    }
+    .fade-up.in { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 860px) {
+      .wrap { padding: 0 24px; }
+      .featured-card { grid-template-columns: 1fr; }
+      .featured-visual { display: none; }
+      .newsletter-inner { grid-template-columns: 1fr; gap: 44px; }
+      .topics-grid { grid-template-columns: repeat(2,1fr); }
+      .article-row { grid-template-columns: 48px 1fr auto; gap: 16px; }
+    }
+    @media (max-width: 560px) {
+      .nav-links { display: none; }
+      .article-row { grid-template-columns: 1fr auto; }
+      .a-num { display: none; }
+      .topics-grid { grid-template-columns: 1fr 1fr; }
+    }
   </style>
 </head>
+<body>
 
-<body class="bg-slate-50 text-slate-900">
+<!-- ── NAV ──────────────────────────────────────────────── -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="/index.html" class="nav-logo">Anshuman Khare</a>
+    <ul class="nav-links">
+      <li><a href="/index.html#experience">Work</a></li>
+      <li><a href="/index.html#principles">Thinking</a></li>
+      <li><a href="/writing.html" class="active">Writing</a></li>
+      <li><a href="/index.html#contact" class="nav-cta">Let's Talk</a></li>
+    </ul>
+  </div>
+</nav>
 
-  <main class="max-w-3xl mx-auto px-6 py-24">
-    <header class="mb-16">
-      <h1 class="text-4xl font-extrabold mb-4">Writing & Case Studies</h1>
-      <p class="text-lg text-slate-600">
-        Notes on growth, unit economics, lifecycle systems, and decisions
-        I’ve made (or learned from) across my career.
-      </p>
-    </header>
+<!-- ── PAGE HEADER ──────────────────────────────────────── -->
+<header class="page-header">
+  <div class="wrap">
+    <div class="eyebrow">Essays & Notes</div>
+    <h1 class="page-title">Writing</h1>
+    <p class="page-sub">
+      Patterns I've noticed in performance data, growth systems, and
+      how good marketers actually think — written down so they're useful to others.
+    </p>
+  </div>
+</header>
 
-    <!-- Writing list -->
-    <section class="space-y-12">
+<!-- ── FEATURED ─────────────────────────────────────────── -->
+<section class="featured-wrap">
+  <div class="wrap">
+    <div class="featured-label">Featured Essay</div>
+    <!-- 
+      TO PUBLISH YOUR FIRST ESSAY:
+      1. Replace href="#" with the actual URL e.g. href="/writing/roas-lagging-indicator.html"
+      2. Update the title, excerpt, visual stat, and date
+      3. Remove the .coming-soon-badge span
+    -->
+    <a href="#" class="featured-card fade-up" aria-label="Read: Why ROAS is a lagging indicator">
+      <div class="featured-body">
+        <div>
+          <div class="featured-meta">
+            <span class="tag">Performance</span>
+            <span class="read-time">6 min read</span>
+          </div>
+          <h2 class="featured-title">
+            Why ROAS is a lagging indicator — and what to track instead
+          </h2>
+          <p class="featured-excerpt">
+            Everyone optimises for ROAS. The problem is that ROAS tells you what
+            already happened. By the time it moves, the damage is done or the
+            opportunity is gone. Here's the framework I use instead.
+          </p>
+        </div>
+        <div class="featured-footer">
+          <span class="post-date">Coming soon</span>
+          <span class="featured-arrow">↗</span>
+        </div>
+      </div>
+      <div class="featured-visual" aria-hidden="true">
+        <span class="coming-soon-badge">Coming Soon</span>
+        <div class="visual-stat">
+          <div class="visual-num">200<span>%</span></div>
+          <div class="visual-label">ROAS → what it really measures</div>
+        </div>
+      </div>
+    </a>
+  </div>
+</section>
 
-      <article>
-        <h2 class="text-2xl font-bold mb-2">
-          Designing for Baseline Revenue, Not Peaks
+<!-- ── FILTERS + ARTICLES ────────────────────────────────── -->
+<section class="articles-wrap">
+  <div class="wrap">
+    <div class="filters-wrap" role="group" aria-label="Filter by topic">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="performance">Performance</button>
+      <button class="filter-btn" data-filter="acquisition">Acquisition</button>
+      <button class="filter-btn" data-filter="lifecycle">Lifecycle</button>
+      <button class="filter-btn" data-filter="strategy">Strategy</button>
+    </div>
+
+    <div id="article-list" style="margin-top: 8px;">
+      <!--
+        HOW TO ADD AN ESSAY:
+        Copy one .article-row block, update all fields.
+        Change data-tag to match a filter button's data-filter value.
+        Change .a-status from "Coming Soon" to class="a-status live" with text "Published".
+        Point href to the essay's HTML file.
+      -->
+
+      <a href="#" class="article-row fade-up" data-tag="performance">
+        <div class="a-num">01</div>
+        <div class="a-body">
+          <div class="a-top">
+            <span class="a-tag">Performance</span>
+          </div>
+          <div class="a-title">Why ROAS is a lagging indicator — and what to track instead</div>
+          <div class="a-excerpt">Everyone optimises for ROAS. The problem is it tells you what already happened. Here's the framework I use instead.</div>
+          <div class="a-meta">
+            <span class="a-date">Coming soon</span>
+            <span class="a-read">· 6 min read</span>
+          </div>
+        </div>
+        <div class="a-right">
+          <span class="a-arrow">↗</span>
+          <span class="a-status">Coming Soon</span>
+        </div>
+      </a>
+
+      <a href="#" class="article-row fade-up" data-tag="acquisition">
+        <div class="a-num">02</div>
+        <div class="a-body">
+          <div class="a-top">
+            <span class="a-tag">Acquisition</span>
+          </div>
+          <div class="a-title">The segmentation trap in Meta campaigns</div>
+          <div class="a-excerpt">Narrow audiences feel precise. But they create overlap, inflate CPMs, and hide your best-performing cohorts. Here's how to think about it.</div>
+          <div class="a-meta">
+            <span class="a-date">Coming soon</span>
+            <span class="a-read">· 5 min read</span>
+          </div>
+        </div>
+        <div class="a-right">
+          <span class="a-arrow">↗</span>
+          <span class="a-status">Coming Soon</span>
+        </div>
+      </a>
+
+      <a href="#" class="article-row fade-up" data-tag="lifecycle">
+        <div class="a-num">03</div>
+        <div class="a-body">
+          <div class="a-top">
+            <span class="a-tag">Lifecycle</span>
+          </div>
+          <div class="a-title">Lifecycle channels are not an afterthought</div>
+          <div class="a-excerpt">Most teams bolt on email and push after the acquisition machine is running. That's backwards. Lifecycle is where your CAC math actually closes.</div>
+          <div class="a-meta">
+            <span class="a-date">Coming soon</span>
+            <span class="a-read">· 7 min read</span>
+          </div>
+        </div>
+        <div class="a-right">
+          <span class="a-arrow">↗</span>
+          <span class="a-status">Coming Soon</span>
+        </div>
+      </a>
+
+      <a href="#" class="article-row fade-up" data-tag="strategy">
+        <div class="a-num">04</div>
+        <div class="a-body">
+          <div class="a-top">
+            <span class="a-tag">Strategy</span>
+          </div>
+          <div class="a-title">How to read a growth problem like a doctor, not a mechanic</div>
+          <div class="a-excerpt">Mechanics fix what's broken. Doctors diagnose why it broke. The difference in how you frame a growth problem determines whether you solve it or just treat the symptom.</div>
+          <div class="a-meta">
+            <span class="a-date">Coming soon</span>
+            <span class="a-read">· 8 min read</span>
+          </div>
+        </div>
+        <div class="a-right">
+          <span class="a-arrow">↗</span>
+          <span class="a-status">Coming Soon</span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── NEWSLETTER ────────────────────────────────────────── -->
+<section class="newsletter-section" id="newsletter">
+  <div class="wrap">
+    <div class="newsletter-inner">
+      <div class="fade-up">
+        <div class="nl-eyebrow">The Newsletter</div>
+        <h2 class="nl-title">
+          Growth thinking,<br/><em>once a month.</em>
         </h2>
-        <p class="text-slate-500 text-sm mb-3">
-          On predictability, demand cycles, and why non-peak months matter more.
+        <p class="nl-sub">
+          One essay per month on performance marketing, acquisition systems,
+          and unit economics. <strong>No fluff, no listicles.</strong>
+          Written for marketers who think in frameworks, not hacks.
         </p>
-        <a href="#" class="text-indigo-600 font-semibold">
-          Read →
-        </a>
-      </article>
+        <div class="nl-proof">
+          <span class="nl-proof-text">Free to subscribe</span>
+          <span class="nl-proof-dot"></span>
+          <span class="nl-proof-text">No spam, ever</span>
+          <span class="nl-proof-dot"></span>
+          <span class="nl-proof-text">Unsubscribe anytime</span>
+        </div>
+      </div>
 
-      <article>
-        <h2 class="text-2xl font-bold mb-2">
-          Why ROAS Is a Terrible Scaling Metric
-        </h2>
-        <p class="text-slate-500 text-sm mb-3">
-          How CM2 and payback windows lead to better decisions.
-        </p>
-        <a href="#" class="text-indigo-600 font-semibold">
-          Read →
-        </a>
-      </article>
+      <!--
+        NEWSLETTER FORM — BEEHIIV INTEGRATION:
+        Option A (recommended): Replace this entire form with your
+        Beehiiv embed code. Go to Beehiiv → Settings → Embed → Copy form code.
 
-      <article>
-        <h2 class="text-2xl font-bold mb-2">
-          Cohorts, Not Averages
-        </h2>
-        <p class="text-slate-500 text-sm mb-3">
-          Segmenting by intent and pricing power instead of demographics.
-        </p>
-        <a href="#" class="text-indigo-600 font-semibold">
-          Read →
-        </a>
-      </article>
+        Option B: Keep this form and point the action to your Beehiiv
+        subscribe URL: action="https://your-pub.beehiiv.com/subscribe"
 
-    </section>
-  </main>
+        Option C: Keep as-is for now. The form shows a success message
+        locally. Wire it up once your Beehiiv account is ready.
+      -->
+      <form class="nl-form fade-up" id="nl-form" novalidate>
+        <div class="nl-field">
+          <label class="nl-label" for="nl-name">First name</label>
+          <input class="nl-input" type="text" id="nl-name" name="first_name" placeholder="Your first name" autocomplete="given-name" />
+        </div>
+        <div class="nl-field">
+          <label class="nl-label" for="nl-email">Email address *</label>
+          <input class="nl-input" type="email" id="nl-email" name="email" placeholder="you@company.com" required autocomplete="email" />
+        </div>
+        <div id="nl-status" class="nl-status" role="alert" aria-live="polite"></div>
+        <button type="submit" class="nl-btn" id="nl-btn">
+          Subscribe to the newsletter →
+        </button>
+        <p class="nl-disclaimer">Free forever. One email a month. Unsubscribe anytime.</p>
+      </form>
+    </div>
+  </div>
+</section>
 
+<!-- ── TOPICS ────────────────────────────────────────────── -->
+<section class="topics-section">
+  <div class="wrap">
+    <div class="eyebrow">Browse by Topic</div>
+    <div class="topics-grid">
+      <div class="topic-cell fade-up" onclick="filterArticles('performance')">
+        <div class="topic-icon">📈</div>
+        <div class="topic-name">Performance Marketing</div>
+        <div class="topic-count">1 essay · more coming</div>
+      </div>
+      <div class="topic-cell fade-up" onclick="filterArticles('acquisition')">
+        <div class="topic-icon">🎯</div>
+        <div class="topic-name">Acquisition</div>
+        <div class="topic-count">1 essay · more coming</div>
+      </div>
+      <div class="topic-cell fade-up" onclick="filterArticles('lifecycle')">
+        <div class="topic-icon">🔄</div>
+        <div class="topic-name">Lifecycle & CRM</div>
+        <div class="topic-count">1 essay · more coming</div>
+      </div>
+      <div class="topic-cell fade-up" onclick="filterArticles('strategy')">
+        <div class="topic-icon">🧠</div>
+        <div class="topic-name">Growth Strategy</div>
+        <div class="topic-count">1 essay · more coming</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────────────── -->
+<footer>
+  <div class="wrap foot-inner">
+    <span class="foot-copy">© 2026 Anshuman Khare</span>
+    <ul class="foot-links">
+      <li><a href="mailto:khare.anshuman47@gmail.com">Email</a></li>
+      <li><a href="https://linkedin.com/in/anshuman-khare" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+      <li><a href="https://twitter.com/anshumankhare" target="_blank" rel="noopener noreferrer">Twitter</a></li>
+      <li><a href="#newsletter">Newsletter</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+  // ── Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // ── Scroll reveal
+  const io = new IntersectionObserver((entries) => {
+    const byParent = new Map();
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const key = e.target.parentElement;
+      if (!byParent.has(key)) byParent.set(key, []);
+      byParent.get(key).push(e.target);
+    });
+    byParent.forEach(els => {
+      els.forEach((el, i) => {
+        setTimeout(() => el.classList.add('in'), i * 90);
+        io.unobserve(el);
+      });
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
+  document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+  // ── Tag filters
+  function filterArticles(tag) {
+    // Update active filter button
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.filter === tag || (tag === 'all' && btn.dataset.filter === 'all'));
+    });
+    // Show/hide rows
+    document.querySelectorAll('.article-row').forEach(row => {
+      const match = tag === 'all' || row.dataset.tag === tag;
+      row.style.display = match ? '' : 'none';
+    });
+    // Scroll to list
+    document.getElementById('article-list').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => filterArticles(btn.dataset.filter));
+  });
+
+  // ── Newsletter form
+  // IMPORTANT: Replace this handler with your Beehiiv embed or a fetch() POST
+  // to your Beehiiv subscribe API once your account is set up.
+  // Beehiiv API endpoint: https://api.beehiiv.com/v2/publications/{pub_id}/subscriptions
+  const nlForm   = document.getElementById('nl-form');
+  const nlStatus = document.getElementById('nl-status');
+  const nlBtn    = document.getElementById('nl-btn');
+
+  nlForm.addEventListener('submit', e => {
+    e.preventDefault();
+    const email = nlForm.email.value.trim();
+    nlStatus.className = 'nl-status';
+
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      nlStatus.textContent = 'Please enter a valid email address.';
+      nlStatus.classList.add('err');
+      return;
+    }
+
+    // ── SWAP THIS BLOCK when Beehiiv is ready ──
+    // Current: shows a holding message
+    // Future:
+    // nlBtn.textContent = 'Subscribing…';
+    // nlBtn.style.opacity = '0.65';
+    // fetch('https://api.beehiiv.com/v2/publications/YOUR_PUB_ID/subscriptions', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer YOUR_API_KEY' },
+    //   body: JSON.stringify({ email, reactivate_existing: true, send_welcome_email: true })
+    // }).then(() => { ... })
+    // ───────────────────────────────────────────
+
+    nlStatus.textContent = "You're on the list — newsletter launches soon. I'll send you the first issue when it's ready.";
+    nlStatus.classList.add('ok');
+    nlBtn.textContent = 'You\'re subscribed ✓';
+    nlBtn.style.opacity = '0.65';
+    nlBtn.disabled = true;
+    nlForm.email.value = '';
+    if (nlForm.first_name) nlForm.first_name.value = '';
+  });
+</script>
 </body>
 </html>
