@@ -451,11 +451,12 @@
     .foot-links a:hover { color: var(--blue); }
 
     /* ── ANIMATIONS ──────────────────────────────────── */
-    .fade-up {
-      opacity: 0; transform: translateY(24px);
+    body.js-ready .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
       transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
     }
-    .fade-up.in { opacity: 1; transform: translateY(0); }
+    body.js-ready .fade-up.in { opacity: 1; transform: translateY(0); }
 
     /* ── RESPONSIVE ──────────────────────────────────── */
     @media (max-width: 860px) {
@@ -730,7 +731,7 @@
   <div class="wrap foot-inner">
     <span class="foot-copy">© 2026 Anshuman Khare</span>
     <ul class="foot-links">
-      <li><a href="mailto:khare.anshuman47@gmail.com">Email</a></li>
+      <li><a href="/cdn-cgi/l/email-protection#b9d2d1d8cbdc97d8d7cad1ccd4d8d78d8ef9ded4d8d0d597dad6d4">Email</a></li>
       <li><a href="https://linkedin.com/in/anshuman-khare" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
       <li><a href="https://twitter.com/anshumankhare" target="_blank" rel="noopener noreferrer">Twitter</a></li>
       <li><a href="#newsletter">Newsletter</a></li>
@@ -738,7 +739,10 @@
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ── Mark body as JS-ready (enables animations safely)
+  document.body.classList.add('js-ready');
+
   // ── Nav scroll
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
@@ -760,8 +764,13 @@
         io.unobserve(el);
       });
     });
-  }, { threshold: 0.08, rootMargin: '0px 0px -24px 0px' });
+  }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
   document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+  // Fallback: reveal anything still hidden after 800ms
+  setTimeout(() => {
+    document.querySelectorAll('.fade-up:not(.in)').forEach(el => el.classList.add('in'));
+  }, 800);
 
   // ── Tag filters
   function filterArticles(tag) {
@@ -816,11 +825,4 @@
     nlStatus.textContent = "You're on the list — newsletter launches soon. I'll send you the first issue when it's ready.";
     nlStatus.classList.add('ok');
     nlBtn.textContent = 'You\'re subscribed ✓';
-    nlBtn.style.opacity = '0.65';
-    nlBtn.disabled = true;
-    nlForm.email.value = '';
-    if (nlForm.first_name) nlForm.first_name.value = '';
-  });
-</script>
-</body>
-</html>
+    nlBtn.style.opacit
