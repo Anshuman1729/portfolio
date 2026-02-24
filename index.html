@@ -3,228 +3,875 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Anshuman Khare | Portfolio</title>
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- SEO -->
+  <title>Anshuman Khare — Performance Marketing</title>
+  <meta name="description" content="Anshuman Khare is a performance marketer building scalable acquisition systems rooted in unit economics. Currently at Meesho, Bengaluru." />
+  <meta name="author" content="Anshuman Khare" />
 
-  <!-- React -->
-  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- Open Graph -->
+  <meta property="og:title" content="Anshuman Khare — Performance Marketing" />
+  <meta property="og:description" content="Building growth systems that compound. Performance marketing, lifecycle, unit economics." />
+  <meta property="og:type" content="website" />
 
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Anshuman Khare" />
+  <meta name="twitter:description" content="Performance marketer. Builder. Economics-first growth." />
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%230057FF'/><text x='50' y='72' font-size='62' text-anchor='middle' fill='white' font-family='serif'>A</text></svg>" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap" rel="stylesheet" />
 
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
-    body { font-family: 'Plus Jakarta Sans', sans-serif; }
-    .metric-card:hover { transform: translateY(-4px); }
+    /* ── TOKENS ──────────────────────────────────────────── */
+    :root {
+      --bg:          #ffffff;
+      --bg-off:      #f7f7f5;
+      --bg-card:     #f2f2f0;
+      --border:      #e8e8e4;
+      --border-mid:  #d4d4cc;
+      --text:        #0a0a0a;
+      --text-2:      #3a3a3a;
+      --text-3:      #888880;
+      --text-4:      #c0c0b8;
+      --blue:        #0057FF;
+      --blue-dim:    #0040cc;
+      --blue-light:  #e8eeff;
+      --serif:       'Plus Jakarta Sans', system-ui, sans-serif;
+      --sans:        'Plus Jakarta Sans', system-ui, sans-serif;
+      --ease:        cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ── RESET ───────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+
+    /* ── LAYOUT ──────────────────────────────────────────── */
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 40px; }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      transition: all 0.4s var(--ease);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 28px 40px;
+      max-width: 1080px; margin: 0 auto;
+      transition: padding 0.4s var(--ease);
+    }
+    #nav.scrolled .nav-inner { padding-top: 16px; padding-bottom: 16px; }
+    #nav.scrolled {
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: var(--sans); font-weight: 700;
+      font-size: 1rem; color: var(--text); letter-spacing: -0.02em;
+    }
+    .nav-links {
+      display: flex; gap: 32px; list-style: none;
+      font-size: 0.8rem; font-weight: 500; letter-spacing: 0.04em;
+      color: var(--text-3);
+    }
+    .nav-links a { transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      color: var(--blue) !important;
+      padding: 8px 18px;
+      border: 1.5px solid var(--blue);
+      border-radius: 100px;
+      transition: background 0.2s, color 0.2s !important;
+    }
+    .nav-cta:hover { background: var(--blue); color: #fff !important; }
+
+    /* ── HERO ────────────────────────────────────────────── */
+    #hero {
+      min-height: 100svh;
+      display: grid; align-content: end;
+      padding-top: 120px; padding-bottom: 100px;
+      border-bottom: 1px solid var(--border);
+      position: relative; overflow: hidden;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(var(--border) 1px, transparent 1px),
+        linear-gradient(90deg, var(--border) 1px, transparent 1px);
+      background-size: 80px 80px;
+      opacity: 0.5;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 100%, black 40%, transparent 100%);
+    }
+    .hero-orb {
+      position: absolute;
+      width: 600px; height: 600px;
+      right: -80px; top: 50%;
+      transform: translateY(-60%);
+      background: radial-gradient(circle, rgba(0,87,255,0.09) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      animation: orb 8s ease-in-out infinite;
+    }
+    @keyframes orb {
+      0%,100% { transform: translateY(-60%) scale(1); }
+      50%      { transform: translateY(-55%) scale(1.06); }
+    }
+    .hero-content { position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--blue); margin-bottom: 32px;
+    }
+    .badge-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: #22c55e;
+      animation: blink 2.4s ease-in-out infinite;
+    }
+    @keyframes blink {
+      0%,100% { opacity:1; } 50% { opacity:0.3; }
+    }
+    .hero-h1 {
+      font-family: var(--sans);
+      font-size: clamp(56px, 8.5vw, 116px);
+      line-height: 0.95; letter-spacing: -0.03em;
+      font-weight: 800;
+      color: var(--text); margin-bottom: 40px;
+    }
+    .hero-h1 .blue { color: var(--blue); }
+    .hero-h1 .it { font-style: italic; font-weight: 300; letter-spacing: -0.01em; }
+    .hero-bottom {
+      display: flex; align-items: flex-end;
+      justify-content: space-between;
+      gap: 32px; flex-wrap: wrap;
+    }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--text-3);
+      line-height: 1.65; max-width: 440px;
+    }
+    .hero-sub strong { color: var(--text-2); font-weight: 500; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-family: var(--sans); font-size: 0.82rem; font-weight: 600;
+      letter-spacing: 0.02em; padding: 14px 26px;
+      border-radius: 100px; border: none; cursor: pointer;
+      transition: all 0.25s var(--ease);
+    }
+    .btn-blue { background: var(--blue); color: #fff; }
+    .btn-blue:hover { background: var(--blue-dim); transform: translateY(-1px); box-shadow: 0 8px 24px rgba(0,87,255,0.25); }
+    .btn-outline { background: transparent; color: var(--text-2); border: 1.5px solid var(--border-mid); }
+    .btn-outline:hover { border-color: var(--text-3); color: var(--text); }
+
+    /* ── TICKER ──────────────────────────────────────────── */
+    .ticker {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 0; background: var(--bg-off);
+    }
+    .ticker-track {
+      display: flex; animation: tick 30s linear infinite;
+      width: max-content;
+    }
+    @keyframes tick { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    .ticker-item {
+      display: flex; align-items: center; gap: 28px;
+      padding: 0 36px; font-size: 0.76rem; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--text-3); white-space: nowrap;
+    }
+    .t-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--blue); flex-shrink: 0; }
+
+    /* ── METRICS ─────────────────────────────────────────── */
+    #metrics { padding: 100px 0; border-bottom: 1px solid var(--border); }
+    .metrics-eyebrow {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--text-4); margin-bottom: 48px;
+    }
+    .metrics-grid {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
+    }
+    .metric-cell {
+      background: var(--bg); padding: 40px 32px;
+      transition: background 0.25s;
+    }
+    .metric-cell:hover { background: var(--blue-light); }
+    .metric-cell:hover .m-num { color: var(--blue); }
+    .m-num {
+      font-family: var(--sans);
+      font-size: clamp(2.2rem,3.5vw,3.2rem);
+      font-weight: 700;
+      line-height: 1; letter-spacing: -0.03em;
+      color: var(--text); margin-bottom: 10px;
+      transition: color 0.25s;
+    }
+    .m-desc { font-size: 0.78rem; color: var(--text-3); line-height: 1.5; }
+    .m-desc strong { color: var(--text-2); font-weight: 500; }
+
+    /* ── SHARED SECTION ──────────────────────────────────── */
+    .section { padding: 110px 0; border-bottom: 1px solid var(--border); }
+    .eyebrow {
+      font-size: 0.72rem; font-weight: 500; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--blue); margin-bottom: 14px;
+    }
+    .section-h {
+      font-family: var(--sans);
+      font-size: clamp(2.2rem,4vw,3.2rem);
+      font-weight: 700;
+      line-height: 1.05; letter-spacing: -0.025em;
+    }
+    .section-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 64px; gap: 24px; flex-wrap: wrap;
+    }
+    .more-link {
+      font-size: 0.78rem; font-weight: 500; color: var(--text-3);
+      display: flex; align-items: center; gap: 6px;
+      border-bottom: 1px solid var(--border-mid); padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s; white-space: nowrap;
+    }
+    .more-link:hover { color: var(--blue); border-color: var(--blue); }
+
+    /* ── PRINCIPLES ──────────────────────────────────────── */
+    .principles-grid {
+      display: grid; grid-template-columns: repeat(2,1fr);
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
+    }
+    .principle {
+      background: var(--bg); padding: 52px 44px;
+      transition: background 0.25s;
+    }
+    .principle:hover { background: var(--bg-off); }
+    .p-idx {
+      font-family: var(--serif); font-size: 0.85rem;
+      color: var(--blue); margin-bottom: 20px; font-style: italic;
+    }
+    .p-title {
+      font-family: var(--sans);
+      font-size: 1.5rem; font-weight: 700;
+      line-height: 1.15; color: var(--text);
+      margin-bottom: 16px; letter-spacing: -0.02em;
+    }
+    .p-title em { font-style: italic; font-weight: 300; color: var(--blue); }
+    .p-body { font-size: 0.88rem; color: var(--text-3); line-height: 1.75; max-width: 340px; }
+
+    /* ── EXPERIENCE ──────────────────────────────────────── */
+    .exp-item {
+      display: grid; grid-template-columns: 220px 1fr;
+      gap: 56px; padding: 52px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .exp-item:last-child { border-bottom: none; }
+    .exp-left { padding-top: 3px; }
+    .exp-period { font-size: 0.75rem; letter-spacing: 0.06em; color: var(--text-4); text-transform: uppercase; margin-bottom: 6px; }
+    .exp-co { font-family: var(--sans); font-weight: 700; font-size: 1.4rem; color: var(--text); margin-bottom: 4px; letter-spacing: -0.02em; }
+    .exp-loc { font-size: 0.78rem; color: var(--text-4); }
+    .exp-role { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--blue); margin-bottom: 22px; }
+    .exp-ul { list-style: none; display: flex; flex-direction: column; gap: 13px; }
+    .exp-ul li { font-size: 0.9rem; color: var(--text-3); line-height: 1.65; padding-left: 16px; position: relative; }
+    .exp-ul li::before { content: ''; position: absolute; left: 0; top: 11px; width: 5px; height: 1px; background: var(--border-mid); }
+    .exp-ul li strong { color: var(--text-2); font-weight: 500; }
+
+    /* ── NOW ─────────────────────────────────────────────── */
+    .now-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: var(--border); border: 1px solid var(--border);
+    }
+    .now-card { background: var(--bg); padding: 44px 36px; transition: background 0.25s; }
+    .now-card:hover { background: var(--bg-off); }
+    .now-tag { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blue); margin-bottom: 18px; }
+    .now-title { font-family: var(--sans); font-weight: 700; font-size: 1.1rem; color: var(--text); margin-bottom: 10px; line-height: 1.3; letter-spacing: -0.01em; }
+    .now-body { font-size: 0.85rem; color: var(--text-3); line-height: 1.7; }
+
+    /* ── WRITING ─────────────────────────────────────────── */
+    .writing-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 24px; padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      transition: padding-left 0.3s var(--ease);
+    }
+    .writing-row:first-child { border-top: 1px solid var(--border); }
+    .writing-row:hover { padding-left: 10px; }
+    .writing-row:hover .w-arrow { color: var(--blue); transform: translate(3px,-3px); }
+    .writing-row:hover .w-title { color: var(--blue); }
+    .w-left { display: flex; align-items: baseline; gap: 18px; }
+    .w-tag {
+      font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-4);
+      background: var(--bg-card); padding: 3px 10px; border-radius: 100px; white-space: nowrap;
+    }
+    .w-title { font-family: var(--sans); font-weight: 600; font-size: 1rem; color: var(--text); transition: color 0.2s; letter-spacing: -0.01em; }
+    .w-right { display: flex; align-items: center; gap: 20px; }
+    .w-date { font-size: 0.75rem; color: var(--text-4); white-space: nowrap; }
+    .w-arrow { font-size: 0.9rem; color: var(--text-4); transition: color 0.2s, transform 0.25s var(--ease); }
+
+    /* ── CONTACT ─────────────────────────────────────────── */
+    #contact { padding: 110px 0 80px; }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: start;
+    }
+    .contact-h {
+      font-family: var(--sans);
+      font-size: clamp(2.4rem,5vw,4rem); font-weight: 800;
+      line-height: 1.05; letter-spacing: -0.03em; margin-bottom: 20px;
+    }
+    .contact-h em { font-style: italic; font-weight: 300; color: var(--blue); }
+    .contact-sub { font-size: 0.92rem; color: var(--text-3); line-height: 1.7; margin-bottom: 44px; max-width: 380px; }
+    .c-links { display: flex; flex-direction: column; }
+    .c-link {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 0; border-bottom: 1px solid var(--border);
+      font-size: 0.88rem; color: var(--text-3);
+      transition: color 0.2s, padding-left 0.25s var(--ease);
+    }
+    .c-link:hover { color: var(--text); padding-left: 8px; }
+    .c-link:hover .c-arr { color: var(--blue); }
+    .c-arr { color: var(--text-4); transition: color 0.2s; }
+
+    /* Form */
+    .form { display: flex; flex-direction: column; gap: 16px; }
+    .f-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .f-field { display: flex; flex-direction: column; gap: 7px; }
+    .f-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); }
+    .f-input, .f-ta {
+      width: 100%; background: var(--bg-off);
+      border: 1.5px solid var(--border); border-radius: 8px;
+      color: var(--text); font-family: var(--sans); font-size: 0.9rem;
+      padding: 13px 16px; outline: none;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    }
+    .f-input:focus, .f-ta:focus {
+      border-color: var(--blue); background: var(--bg);
+      box-shadow: 0 0 0 4px rgba(0,87,255,0.07);
+    }
+    .f-input::placeholder, .f-ta::placeholder { color: var(--text-4); }
+    .f-ta { resize: vertical; min-height: 120px; }
+    .f-status { display: none; font-size: 0.82rem; padding: 12px 16px; border-radius: 8px; }
+    .f-status.ok  { display: block; background: rgba(34,197,94,0.08); color: #16a34a; border: 1px solid rgba(34,197,94,0.2); }
+    .f-status.err { display: block; background: rgba(239,68,68,0.08); color: #dc2626; border: 1px solid rgba(239,68,68,0.2); }
+
+    /* ── EDUCATION ───────────────────────────────────────── */
+    #edu { padding: 72px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .edu-inner { display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap; }
+    .edu-school { font-family: var(--sans); font-weight: 700; font-size: 1.3rem; color: var(--text); margin-bottom: 6px; letter-spacing: -0.015em; }
+    .edu-detail { font-size: 0.85rem; color: var(--text-3); line-height: 1.6; }
+    .edu-gpa { font-family: var(--sans); font-weight: 800; font-size: clamp(3rem,6vw,5rem); color: var(--blue); opacity: 0.15; letter-spacing: -0.04em; user-select: none; }
+
+    /* ── FOOTER ──────────────────────────────────────────── */
+    footer { padding: 36px 0; }
+    .foot-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; }
+    .foot-copy { font-size: 0.75rem; color: var(--text-4); }
+    .foot-links { display: flex; gap: 28px; list-style: none; }
+    .foot-links a { font-size: 0.75rem; color: var(--text-4); letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.2s; }
+    .foot-links a:hover { color: var(--blue); }
+
+    /* ── ANIMATIONS ──────────────────────────────────────── */
+    .fade-up {
+      opacity: 0; transform: translateY(28px);
+      transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+    }
+    .fade-up.in { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ──────────────────────────────────────── */
+    @media (max-width: 860px) {
+      .wrap { padding: 0 24px; }
+      .metrics-grid { grid-template-columns: repeat(2,1fr); }
+      .principles-grid { grid-template-columns: 1fr; }
+      .now-grid { grid-template-columns: 1fr; }
+      .exp-item { grid-template-columns: 1fr; gap: 16px; }
+      .contact-grid { grid-template-columns: 1fr; gap: 52px; }
+      .f-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .nav-links { display: none; }
+      .hero-orb { display: none; }
+      .hero-h1 { font-size: 52px; }
+      .metrics-grid { grid-template-columns: 1fr; }
+      .w-left { flex-direction: column; gap: 6px; }
+    }
   </style>
 </head>
+<body>
 
-<body class="bg-slate-50 text-slate-900">
-<div id="root"></div>
+<!-- ── NAV ────────────────────────────────────────────────── -->
+<nav id="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">Anshuman Khare</a>
+    <ul class="nav-links">
+      <li><a href="#experience">Work</a></li>
+      <li><a href="#principles">Thinking</a></li>
+      <li><a href="#writing">Writing</a></li>
+      <li><a href="#contact" class="nav-cta">Let's Talk</a></li>
+    </ul>
+  </div>
+</nav>
 
-<script type="text/babel">
-const { useState, useEffect } = React;
-
-const Icon = ({ name, size = 18, className = "" }) => {
-  useEffect(() => {
-    if (window.lucide) window.lucide.createIcons();
-  }, [name]);
-  return <i data-lucide={name} className={className} style={{ width: size, height: size }}></i>;
-};
-
-const App = () => {
-
-  const [activeTab, setActiveTab] = useState("experience");
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const stats = [
-    { value: "Predictability > Volatility" },
-    { value: "Segmentation Before Scale" },
-    { value: "Economics-First Growth" },
-    { value: "Structure Beats Hacks" }
-  ];
-
-  const experience = [
-    {
-      company: "Meesho",
-      role: "Senior Associate – Performance Marketing",
-      period: "Mar 2026 – Current",
-      location: "Bengaluru, KA",
-      highlights: [
-        "Leading performance marketing initiatives focused on scalable and efficient growth.",
-        "Driving acquisition systems anchored in contribution margins and long-term unit economics.",
-        "Optimizing channel mix and experimentation velocity across paid ecosystems."
-      ]
-    },
-    {
-      company: "AppsForBharat",
-      role: "Performance Marketing Associate",
-      period: "Aug 2024 – Mar 2026",
-      location: "Bengaluru, KA",
-      highlights: [
-        "Scaled non-peak monthly revenue from ₹80L to ₹2.5Cr baseline.",
-        "Drove peak-period revenue to ₹5Cr via global/NRI expansion.",
-        "Managed ₹1Cr+ monthly Meta ad spends across geographies.",
-        "Doubled Email revenue to ₹17L/month; scaled WhatsApp & Push.",
-        "Improved ROAS from 150% to 200% while reducing CAC by 15%."
-      ]
-    },
-    {
-      company: "ET Medialabs",
-      role: "Associate, Business Strategy & Analysis",
-      period: "Jan 2024 – Aug 2024",
-      location: "Noida, UP",
-      highlights: [
-        "Reduced CAC by 20% and increased new users by 25% for Urban Company.",
-        "Delivered 22% revenue growth for a luxury fashion brand.",
-        "Maintained 6.4 ROAS via structured intent & PMax frameworks."
-      ]
-    }
-  ];
-
-  return (
-    <div className="min-h-screen">
-
-      {/* NAVIGATION */}
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-white/80 backdrop-blur-md border-b border-slate-200 py-4 shadow-sm' : 'bg-transparent py-6'}`}>
-        <div className="max-w-6xl mx-auto px-6 flex justify-between items-center">
-          <span className="text-xl font-extrabold tracking-tight">
-            ANSHUMAN<span className="text-indigo-600">KHARE</span>
-          </span>
-          <div className="hidden md:flex gap-8 text-sm font-semibold uppercase tracking-widest text-slate-600">
-            <a href="#about" className="hover:text-indigo-600">About</a>
-            <a href="#experience" className="hover:text-indigo-600">Experience</a>
-            <a href="/writing.html" className="hover:text-indigo-600">Writing</a>
-            <a href="mailto:khare.anshuman47@gmail.com" className="text-indigo-600">Contact</a>
-          </div>
-        </div>
-      </nav>
-
-      {/* HERO */}
-      <section id="about" className="pt-32 pb-20 px-6 bg-white">
-        <div className="max-w-6xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
-
-          <div className="space-y-8">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-xs font-bold uppercase tracking-widest">
-              <Icon name="trending-up" size={14} />
-              Growth & Performance Marketing
-            </div>
-
-            <h1 className="text-5xl md:text-7xl font-extrabold leading-tight">
-              Scaling Growth With <span className="text-indigo-600 italic">Precision.</span>
-            </h1>
-
-            <p className="text-lg text-slate-600 max-w-xl">
-              I work across acquisition, monetization, and lifecycle systems,
-              optimizing for sustainable growth rooted in user behavior.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4">
-            {stats.map((stat, idx) => (
-              <div key={idx} className="metric-card p-6 bg-slate-50 border border-slate-100 rounded-2xl hover:shadow-xl hover:shadow-indigo-500/5 transition-all">
-                <h3 className="text-xl font-semibold text-slate-900">
-                  {stat.value}
-                </h3>
-              </div>
-            ))}
-          </div>
-
-        </div>
-      </section>
-
-      {/* EXPERIENCE */}
-      <section id="experience" className="py-20 px-6 bg-slate-50/50">
-        <div className="max-w-4xl mx-auto space-y-12">
-          {experience.map((exp, idx) => (
-            <div key={idx} className="relative pl-8 border-l-2 border-slate-200">
-              <div className="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-white border-2 border-indigo-600" />
-              <div className="flex flex-wrap justify-between items-start mb-6">
-                <div>
-                  <h3 className="text-2xl font-bold">{exp.company}</h3>
-                  <p className="text-indigo-600 font-bold">{exp.role}</p>
-                </div>
-                <div className="text-right">
-                  <p className="text-sm font-bold">{exp.period}</p>
-                  <p className="text-xs text-slate-500">{exp.location}</p>
-                </div>
-              </div>
-              <ul className="space-y-3 text-slate-600">
-                {exp.highlights.map((item, i) => (
-                  <li key={i} className="flex gap-3">
-                    <Icon name="chevron-right" size={16} className="text-indigo-600 mt-1" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* EDUCATION + LEAD FORM */}
-      <section className="py-20 px-6 bg-white">
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
-
-          {/* EDUCATION */}
-          <div className="p-10 bg-slate-50 border border-slate-200 rounded-[2rem] shadow-sm">
-            <h3 className="text-2xl font-bold mb-8 flex items-center gap-3">
-              <Icon name="book-open" className="text-indigo-600" />
-              Education
-            </h3>
-            <h4 className="text-xl font-bold">
-              SRM Institute of Science and Technology
-            </h4>
-            <p className="text-indigo-600 font-semibold">
-              B.Tech, Electrical & Electronics Engineering
-            </p>
-            <div className="mt-4 text-slate-600">
-              CGPA: 9.19 | 2020 – 2024
-            </div>
-          </div>
-
-          {/* LEAD FORM */}
-          <div className="p-10 bg-white border border-slate-200 rounded-[2rem] shadow-sm">
-            <h3 className="text-2xl font-bold mb-6">Work With Me</h3>
-            <p className="text-slate-600 mb-8">
-              If you’re building growth where unit economics matter,
-              leave a note and I’ll get back.
-            </p>
-
-            <form className="space-y-4">
-              <input type="text" placeholder="Your name" className="w-full px-4 py-3 border rounded-xl" />
-              <input type="email" placeholder="Email (optional)" className="w-full px-4 py-3 border rounded-xl" />
-              <input type="tel" placeholder="Phone (optional)" className="w-full px-4 py-3 border rounded-xl" />
-              <textarea required placeholder="What would you like to discuss?" rows="4" className="w-full px-4 py-3 border rounded-xl"></textarea>
-              <button type="submit" className="w-full px-6 py-4 bg-indigo-600 text-white font-bold rounded-xl">
-                Send Message
-              </button>
-            </form>
-          </div>
-
-        </div>
-      </section>
-
-      <footer className="py-12 text-center text-slate-400 text-xs font-bold uppercase tracking-widest border-t border-slate-100">
-        © 2026 Anshuman Khare • Built for Growth
-      </footer>
-
+<!-- ── HERO ───────────────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-orb"  aria-hidden="true"></div>
+  <div class="wrap hero-content">
+    <div class="hero-badge">
+      <span class="badge-dot" aria-hidden="true"></span>
+      Available · Bengaluru, India
     </div>
-  );
-};
+    <h1 class="hero-h1">
+      I build growth<br/>
+      systems that<br/>
+      <span class="blue it">compound.</span>
+    </h1>
+    <div class="hero-bottom">
+      <p class="hero-sub">
+        Performance marketing, lifecycle, and acquisition —
+        anchored in <strong>unit economics</strong>, not vanity metrics.
+        Currently scaling growth at Meesho.
+      </p>
+      <div class="hero-actions">
+        <a href="#experience" class="btn btn-blue">See My Work</a>
+        <a href="#contact"    class="btn btn-outline">Get in Touch</a>
+      </div>
+    </div>
+  </div>
+</section>
 
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
-</script>
+<!-- ── TICKER ─────────────────────────────────────────────── -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">Performance Marketing <span class="t-dot"></span></span>
+    <span class="ticker-item">Meta Ads <span class="t-dot"></span></span>
+    <span class="ticker-item">Google Ads <span class="t-dot"></span></span>
+    <span class="ticker-item">Lifecycle & CRM <span class="t-dot"></span></span>
+    <span class="ticker-item">Unit Economics <span class="t-dot"></span></span>
+    <span class="ticker-item">Growth Strategy <span class="t-dot"></span></span>
+    <span class="ticker-item">ROAS Optimisation <span class="t-dot"></span></span>
+    <span class="ticker-item">CAC Reduction <span class="t-dot"></span></span>
+    <span class="ticker-item">Audience Segmentation <span class="t-dot"></span></span>
+    <span class="ticker-item">Revenue Growth <span class="t-dot"></span></span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item">Performance Marketing <span class="t-dot"></span></span>
+    <span class="ticker-item">Meta Ads <span class="t-dot"></span></span>
+    <span class="ticker-item">Google Ads <span class="t-dot"></span></span>
+    <span class="ticker-item">Lifecycle & CRM <span class="t-dot"></span></span>
+    <span class="ticker-item">Unit Economics <span class="t-dot"></span></span>
+    <span class="ticker-item">Growth Strategy <span class="t-dot"></span></span>
+    <span class="ticker-item">ROAS Optimisation <span class="t-dot"></span></span>
+    <span class="ticker-item">CAC Reduction <span class="t-dot"></span></span>
+    <span class="ticker-item">Audience Segmentation <span class="t-dot"></span></span>
+    <span class="ticker-item">Revenue Growth <span class="t-dot"></span></span>
+  </div>
+</div>
 
-</body>
-</html>
+<!-- ── METRICS ────────────────────────────────────────────── -->
+<section id="metrics">
+  <div class="wrap">
+    <div class="metrics-eyebrow">By the numbers</div>
+    <div class="metrics-grid">
+      <div class="metric-cell fade-up">
+        <div class="m-num">3.1×</div>
+        <div class="m-desc"><strong>Revenue baseline growth</strong><br/>₹80L → ₹2.5Cr non-peak monthly</div>
+      </div>
+      <div class="metric-cell fade-up">
+        <div class="m-num">₹5Cr</div>
+        <div class="m-desc"><strong>Peak-period revenue</strong><br/>via global & NRI audience expansion</div>
+      </div>
+      <div class="metric-cell fade-up">
+        <div class="m-num">200%</div>
+        <div class="m-desc"><strong>ROAS achieved</strong><br/>up from 150%, with –15% CAC</div>
+      </div>
+      <div class="metric-cell fade-up">
+        <div class="m-num">–20%</div>
+        <div class="m-desc"><strong>CAC reduction</strong><br/>+25% new users for Urban Company</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRINCIPLES ─────────────────────────────────────────── -->
+<section id="principles" class="section">
+  <div class="wrap">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">How I Think</div>
+        <h2 class="section-h">Principles</h2>
+      </div>
+    </div>
+    <div class="principles-grid">
+      <div class="principle fade-up">
+        <div class="p-idx">01 —</div>
+        <h3 class="p-title"><em>Predictability</em> over volatility</h3>
+        <p class="p-body">A channel that delivers 80% of target every month beats one that swings 50–150%. Compounding needs a stable foundation before it needs a higher ceiling.</p>
+      </div>
+      <div class="principle fade-up">
+        <div class="p-idx">02 —</div>
+        <h3 class="p-title"><em>Segment</em> before you scale</h3>
+        <p class="p-body">Scaling on blended averages is a trap. Know exactly which cohorts carry the numbers before you pour fuel — otherwise you're growing your worst customers fastest.</p>
+      </div>
+      <div class="principle fade-up">
+        <div class="p-idx">03 —</div>
+        <h3 class="p-title"><em>Economics</em>-first growth</h3>
+        <p class="p-body">ROAS and CAC aren't just reporting metrics — they're the guardrails that determine whether growth is real or accounting fiction. Optimize for the former, report on the latter.</p>
+      </div>
+      <div class="principle fade-up">
+        <div class="p-idx">04 —</div>
+        <h3 class="p-title"><em>Structure</em> beats hacks</h3>
+        <p class="p-body">Creative fatigue, audience overlap, bid cannibalization — most performance problems are structural, not tactical. Fix the system, not the symptom, and the numbers follow.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── EXPERIENCE ─────────────────────────────────────────── -->
+<section id="experience" class="section">
+  <div class="wrap">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Work History</div>
+        <h2 class="section-h">Experience</h2>
+      </div>
+    </div>
+
+    <div class="exp-item fade-up">
+      <div class="exp-left">
+        <div class="exp-period">Mar 2026 — Present</div>
+        <div class="exp-co">Meesho</div>
+        <div class="exp-loc">Bengaluru, KA</div>
+      </div>
+      <div>
+        <div class="exp-role">Senior Associate — Performance Marketing</div>
+        <ul class="exp-ul">
+          <li>Leading performance marketing initiatives focused on scalable, efficient growth across paid ecosystems.</li>
+          <li>Driving acquisition systems anchored in <strong>contribution margins</strong> and long-term unit economics.</li>
+          <li>Optimizing channel mix and experimentation velocity to surface and resolve structural inefficiencies.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-up">
+      <div class="exp-left">
+        <div class="exp-period">Aug 2024 — Mar 2026</div>
+        <div class="exp-co">AppsForBharat</div>
+        <div class="exp-loc">Bengaluru, KA</div>
+      </div>
+      <div>
+        <div class="exp-role">Performance Marketing Associate</div>
+        <ul class="exp-ul">
+          <li>Scaled non-peak monthly revenue from <strong>₹80L → ₹2.5Cr</strong> through structured channel and audience expansion.</li>
+          <li>Drove peak-period revenue to <strong>₹5Cr</strong> via global and NRI market targeting.</li>
+          <li>Managed <strong>₹1Cr+ monthly Meta ad spends</strong> across geographies with disciplined budget governance.</li>
+          <li>Doubled Email revenue to <strong>₹17L/month</strong>; scaled WhatsApp and Push notification programs from scratch.</li>
+          <li>Improved <strong>ROAS 150% → 200%</strong> while reducing CAC by 15% simultaneously.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item fade-up">
+      <div class="exp-left">
+        <div class="exp-period">Jan 2024 — Aug 2024</div>
+        <div class="exp-co">ET Medialabs</div>
+        <div class="exp-loc">Noida, UP</div>
+      </div>
+      <div>
+        <div class="exp-role">Associate — Business Strategy & Analysis</div>
+        <ul class="exp-ul">
+          <li>Reduced CAC by <strong>20%</strong> and grew new users by <strong>25%</strong> for Urban Company via audience restructuring.</li>
+          <li>Delivered <strong>22% revenue growth</strong> for a luxury fashion brand through intent-layered campaign architecture.</li>
+          <li>Maintained <strong>6.4 ROAS</strong> across Performance Max and Search using structured intent frameworks.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── NOW ────────────────────────────────────────────────── -->
+<section id="now" class="section">
+  <div class="wrap">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Right Now</div>
+        <h2 class="section-h">Currently</h2>
+      </div>
+      <span style="font-size:0.75rem;color:var(--text-4);">Updated Feb 2026</span>
+    </div>
+    <div class="now-grid">
+      <div class="now-card fade-up">
+        <div class="now-tag">Working on</div>
+        <div class="now-title">Acquisition efficiency at Meesho</div>
+        <div class="now-body">Building contribution-margin-led growth systems at scale. Thinking deeply about how paid and organic interact at high volume.</div>
+      </div>
+      <div class="now-card fade-up">
+        <div class="now-tag">Exploring</div>
+        <div class="now-title">Growth loops & compounding systems</div>
+        <div class="now-body">What makes an acquisition loop self-sustaining vs. one that needs constant fuel? Working through this with live data from paid channels.</div>
+      </div>
+      <div class="now-card fade-up">
+        <div class="now-tag">Building toward</div>
+        <div class="now-title">Writing consistently</div>
+        <div class="now-body">Turning patterns I see in performance data into ideas worth publishing. First essays coming soon — one sharp piece per month.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WRITING ─────────────────────────────────────────────── -->
+<section id="writing" class="section">
+  <div class="wrap">
+    <div class="section-header">
+      <div>
+        <div class="eyebrow">Essays & Notes</div>
+        <h2 class="section-h">Writing</h2>
+      </div>
+      <a href="/writing.html" class="more-link">All writing →</a>
+    </div>
+    <div>
+      <a href="/writing.html" class="writing-row fade-up">
+        <div class="w-left">
+          <span class="w-tag">Performance</span>
+          <span class="w-title">Why ROAS is a lagging indicator</span>
+        </div>
+        <div class="w-right">
+          <span class="w-date">Coming soon</span>
+          <span class="w-arrow">↗</span>
+        </div>
+      </a>
+      <a href="/writing.html" class="writing-row fade-up">
+        <div class="w-left">
+          <span class="w-tag">Acquisition</span>
+          <span class="w-title">The segmentation trap in Meta campaigns</span>
+        </div>
+        <div class="w-right">
+          <span class="w-date">Coming soon</span>
+          <span class="w-arrow">↗</span>
+        </div>
+      </a>
+      <a href="/writing.html" class="writing-row fade-up">
+        <div class="w-left">
+          <span class="w-tag">Lifecycle</span>
+          <span class="w-title">Lifecycle channels are not an afterthought</span>
+        </div>
+        <div class="w-right">
+          <span class="w-date">Coming soon</span>
+          <span class="w-arrow">↗</span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTACT ─────────────────────────────────────────────── -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="fade-up">
+        <div class="eyebrow">Get in Touch</div>
+        <h2 class="contact-h">Let's build<br/><em>something real.</em></h2>
+        <p class="contact-sub">
+          If you're working on growth where unit economics matter —
+          acquisition, lifecycle, or strategy — I'd like to hear about it.
+        </p>
+        <div class="c-links">
+          <a href="/cdn-cgi/l/email-protection#f19a99908394df909f8299849c909fc5c6b1969c90989ddf929e9c" class="c-link">
+            <span class="__cf_email__" data-cfemail="791211180b1c5718170a110c1418174d4e391e14181015571a1614">[email&#160;protected]</span> <span class="c-arr">↗</span>
+          </a>
+          <a href="https://linkedin.com/in/anshuman-khare" target="_blank" rel="noopener noreferrer" class="c-link">
+            LinkedIn <span class="c-arr">↗</span>
+          </a>
+          <a href="https://twitter.com/anshumankhare" target="_blank" rel="noopener noreferrer" class="c-link">
+            Twitter / X <span class="c-arr">↗</span>
+          </a>
+        </div>
+      </div>
+
+      <form id="contact-form" class="form fade-up" novalidate>
+        <div class="f-row">
+          <div class="f-field">
+            <label class="f-label" for="f-name">Name *</label>
+            <input class="f-input" type="text" id="f-name" name="name" placeholder="Your name" required autocomplete="name" />
+          </div>
+          <div class="f-field">
+            <label class="f-label" for="f-email">Email *</label>
+            <input class="f-input" type="email" id="f-email" name="email" placeholder="you@company.com" required autocomplete="email" />
+          </div>
+        </div>
+        <div class="f-field">
+          <label class="f-label" for="f-ctx">What's this about?</label>
+          <input class="f-input" type="text" id="f-ctx" name="context" placeholder="Role, project, collaboration…" />
+        </div>
+        <div class="f-field">
+          <label class="f-label" for="f-msg">Message *</label>
+          <textarea class="f-ta" id="f-msg" name="message" placeholder="Tell me what you're building." required></textarea>
+        </div>
+        <div id="f-status" class="f-status" role="alert" aria-live="polite"></div>
+        <button type="submit" class="btn btn-blue" id="f-btn" style="width:100%;justify-content:center;border-radius:8px;">
+          Send Message →
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ── NEWSLETTER BAND ─────────────────────────────────────── -->
+<section style="background:var(--bg-off);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:72px 0;">
+  <div class="wrap">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;">
+      <div class="fade-up">
+        <div class="eyebrow" style="margin-bottom:12px;">The Newsletter</div>
+        <div style="font-size:clamp(1.6rem,3vw,2.2rem);font-weight:800;letter-spacing:-0.03em;line-height:1.1;margin-bottom:14px;">
+          Growth thinking,
+          <span style="font-style:italic;font-weight:300;color:var(--blue);">once a month.</span>
+        </div>
+        <p style="font-size:0.9rem;color:var(--text-3);line-height:1.7;max-width:380px;">
+          One essay per month on performance marketing, acquisition systems, and unit economics.
+          No fluff. Written for marketers who think in frameworks.
+        </p>
+      </div>
+      <form id="hp-nl-form" class="fade-up" novalidate style="display:flex;flex-direction:column;gap:12px;">
+        <input
+          id="hp-nl-email" name="email" type="email"
+          placeholder="your@email.com" required autocomplete="email"
+          style="width:100%;background:var(--bg);border:1.5px solid var(--border);border-radius:8px;color:var(--text);font-family:var(--sans);font-size:0.9rem;padding:14px 16px;outline:none;transition:border-color 0.2s,box-shadow 0.2s;"
+        />
+        <div id="hp-nl-status" role="alert" aria-live="polite" style="display:none;font-size:0.82rem;padding:12px 16px;border-radius:8px;"></div>
+        <button type="submit" id="hp-nl-btn"
+          style="width:100%;display:flex;align-items:center;justify-content:center;gap:8px;font-family:var(--sans);font-size:0.85rem;font-weight:700;padding:15px 24px;border-radius:8px;background:var(--blue);color:#fff;border:none;cursor:pointer;transition:all 0.25s;">
+          Subscribe — it's free →
+        </button>
+        <p style="font-size:0.72rem;color:var(--text-4);text-align:center;">Free forever · One email a month · Unsubscribe anytime</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ── EDUCATION ───────────────────────────────────────────── -->
+<section id="edu">
+  <div class="wrap">
+    <div class="edu-inner">
+      <div class="fade-up">
+        <div class="eyebrow" style="margin-bottom:10px;">Education</div>
+        <div class="edu-school">SRM Institute of Science and Technology</div>
+        <div class="edu-detail">
+          B.Tech, Electrical & Electronics Engineering<br/>
+          CGPA 9.19 &nbsp;·&nbsp; 2020 – 2024
+        </div>
+      </div>
+      <div class="edu-gpa" aria-hidden="true">9.19</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ──────────────────────────────────────────────── -->
+<footer>
+  <div class="wrap foot-inner">
+    <span class="foot-copy">© 2026 Anshuman Khare</span>
+    <ul class="foot-links">
+      <li><a href="/cdn-cgi/l/email-protection#056e6d6477602b646b766d7068646b3132456268646c692b666a68">Email</a></li>
+      <li><a href="https://linkedin.com/in/anshuman-khare" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+      <li><a href="https://twitter.com/anshumankhare" target="_blank" rel="noopener noreferrer">Twitter</a></li>
+      <li><a href="/writing.html">Writing</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ── Nav scroll state
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // ── Scroll reveal with per-grid stagger
+  const io = new IntersectionObserver((entries) => {
+    const byParent = new Map();
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const key = e.target.parentElement;
+      if (!byParent.has(key)) byParent.set(key, []);
+      byParent.get(key).push(e.target);
+    });
+    byParent.forEach(els => {
+      els.forEach((el, i) => {
+        setTimeout(() => el.classList.add('in'), i * 90);
+        io.unobserve(el);
+      });
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+
+  document.querySelectorAll('.fade-up').forEach(el => io.observe(el));
+
+  // ── Homepage newsletter form
+  const hpForm   = document.getElementById('hp-nl-form');
+  const hpStatus = document.getElementById('hp-nl-status');
+  const hpBtn    = document.getElementById('hp-nl-btn');
+  if (hpForm) {
+    hpForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const email = hpForm.email.value.trim();
+      hpStatus.style.display = 'none';
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        hpStatus.textContent = 'Please enter a valid email address.';
+        Object.assign(hpStatus.style, { display:'block', background:'rgba(239,68,68,0.08)', color:'#dc2626', border:'1px solid rgba(239,68,68,0.2)' });
+        return;
+      }
+      // Swap this for a Beehiiv fetch() POST when your account is ready
+      hpStatus.textContent = "You're on the list — first issue coming soon.";
+      Object.assign(hpStatus.style, { display:'block', background:'rgba(34,197,94,0.08)', color:'#16a34a', border:'1px solid rgba(34,197,94,0.2)' });
+      hpBtn.textContent = 'Subscribed ✓';
+      hpBtn.style.opacity = '0.65';
+      hpBtn.disabled = true;
+      hpForm.email.value = '';
+    });
+  }
+
+  // ── Contact form — validates, then opens mailto
+  // When you're ready to go server-side: swap window.location.href = mailto
+  // for a fetch() POST to Formspree, Resend, or your own Next.js API route.
+  const form   = document.getElementById('contact-form');
+  const status = document.getElementById('f-status');
+  const btn    = document.getElementById('f-btn');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const name  = form.name.value.trim();
+    const email = form.email.value.trim();
+    const msg   = form.message.value.trim();
+    const ctx   = form.context.value.trim();
+
+    status.className = 'f-status';
+
+    if (!name || !email || !msg) {
+      status.textContent = 'Please fill in your name, email, and message.';
+      status.classList.add('err');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      status.textContent = 'Please enter a valid email address.';
+      status.classList.add('err');
+      return;
+    }
+
+    const body   = `Name: ${name}\nEmail: ${email}\nContext: ${ctx || '—'}\n\n${msg}`;
+    const mailto = `mailto:khare.anshuman47@gmail.com?subject=${encodeURIComponent('Portfolio enquiry from ' + name)}&body=${encodeURIComponent(body)}`;
+
+    btn.textContent  = 'Opening mail client…';
+    btn.style.opacity = '0.65';
+    window.location.href = mailto;
+
+    setTimeo
